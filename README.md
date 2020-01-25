@@ -27,7 +27,7 @@ pip install rtmidi
 ```
 
 python midi-thru code:
-``python
+```python
 import rtmidi_python as rtmidi
 
 midi_inSide = rtmidi.MidiIn()
