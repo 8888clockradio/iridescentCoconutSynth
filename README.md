@@ -12,8 +12,9 @@ http://georgerosar.com/wavetable/
 The project was originally intended to connect via WI-FI and have a web-server to control it.
 
 
-Here's some python help if you want to use python to link midi devices
-You may need to
+Here's some python help if you want to use python to link midi devices.
+
+You may need to:
 
 ```
 pip3 install rtmidi
