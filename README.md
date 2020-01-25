@@ -12,10 +12,11 @@ http://georgerosar.com/wavetable/
 
 Here's some python help if you want to use python to link midi devices
 
-
+```
 import rtmidi_python as rtmidi
 
 midi_inSide = rtmidi.MidiIn()
+
 midi_inSide.ignore_types( False, False, False ) #read sysx data
 
 midi_outSide = rtmidi.MidiOut()
@@ -33,3 +34,4 @@ for port_name in midi_outSide.ports:
 midi_inSide.open_port(1)    #starts with 0
 midi_outSide.open_port(8)   #also starts with 0
 midi_inSide.callback = callback
+```
