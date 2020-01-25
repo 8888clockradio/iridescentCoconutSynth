@@ -27,12 +27,14 @@ def callback(message, time_stamp):
 	print message, time_stamp
 	midi_outSide.send_message(message)
 
+#the two lists
 for port_name in midi_inSide.ports:
 	print port_name
 
 for port_name in midi_outSide.ports:
 	print port_name
 
+#use values from the two lists above
 midi_inSide.open_port(1)    #starts with 0
 midi_outSide.open_port(8)   #also starts with 0
 midi_inSide.callback = callback
