@@ -7,7 +7,7 @@ Initially Copyright 2020 George C. Rosar II
 Licensed Apache 2.0
 
 There is a javascript front-end available at: 
-http://georgerosar.com/wavetable/
+https://georgerosar.com/wavetable/
 
 The project was originally intended to connect via WI-FI and have a web-server to control it.
 
