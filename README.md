@@ -16,13 +16,13 @@ Here's some python help if you want to use python to link midi devices.
 
 You may need to:
 
-```
+```bash
 pip3 install rtmidi
 ```
 
 OR
 
-```
+```bash
 pip install rtmidi
 ```
 
@@ -48,7 +48,7 @@ for port_name in midi_outSide.ports:
 	print port_name
 
 #use values from the two lists above
-midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE AND
-midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device SENDS HERE
+midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE
+midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device  SENDS HERE
 midi_inSide.callback = callback
 ```
