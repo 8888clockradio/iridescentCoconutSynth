@@ -28,6 +28,7 @@ pip install rtmidi
 
 python or python3 midi thru code:
 ```python
+#START HIGHLIGHTING
 import rtmidi_python as rtmidi
 
 midi_inSide = rtmidi.MidiIn()
@@ -47,10 +48,14 @@ for port_name in midi_inSide.ports:
 #lists all midi out ports starting with 0
 for port_name in midi_outSide.ports:
 	print port_name
+	
+#END HIGHLIGHT PASTE ABOVE CODE INTO PYTHON INTERPRETER
+#PRESS RETURN OR ENTER A FEW TIMES
+#ADJUST THE VALUES BELOW THEN PASTE THE REST OF THE CODE AND PRESS ENTER A FEW TIMES
 
 #use values from the two lists above
 midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE
 midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device  SENDS HERE
 midi_inSide.callback = callback #actually assigns the midi thru with function callback
 ```
-Remember control+d twice, force quits python. Also note: control NOT Command (mac os)
+Remember control+d once or twice, force quits python. Also note: control NOT Command (Mac OS)
