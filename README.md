@@ -27,7 +27,7 @@ pip install rtmidi
 ```
 
 python midi-thru code:
-```
+``python
 import rtmidi_python as rtmidi
 
 midi_inSide = rtmidi.MidiIn()
@@ -48,7 +48,7 @@ for port_name in midi_outSide.ports:
 	print port_name
 
 #use values from the two lists above
-midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 		RECEIVES HERE AND
-midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device 	SENDS HERE
+midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE AND
+midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device SENDS HERE
 midi_inSide.callback = callback
 ```
