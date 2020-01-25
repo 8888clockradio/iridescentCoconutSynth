@@ -53,3 +53,4 @@ midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 
 midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device  SENDS HERE
 midi_inSide.callback = callback #actually assigns the midi thru with function callback
 ```
+Remember control+d twice, force quits python. Also note: control NOT Command (mac os)
