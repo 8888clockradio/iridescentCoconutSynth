@@ -25,6 +25,7 @@ OR
 pip install rtmidi
 ```
 
+python midi-thru code:
 ```
 import rtmidi_python as rtmidi
 
