@@ -414,13 +414,13 @@ void iridescentBasicSynth::updateSynth() {
   }
   else {
     
-      /////
-      //turn off filter
-      filterHeaven1.gain(0, 0.0); //lowpass
-      filterHeaven1.gain(1, 0.0); //bandpass
-      filterHeaven1.gain(2, 0.0); //highpass
-      filterHeaven1.gain(3, 1.0); //from pwmMixer       
-      /////                       
+    /////
+    //turn off filter
+    filterHeaven1.gain(0, 0.0); //lowpass
+    filterHeaven1.gain(1, 0.0); //bandpass
+    filterHeaven1.gain(2, 0.0); //highpass
+    filterHeaven1.gain(3, 1.0); //from pwmMixer       
+    /////                       
 
     if (pwmBypass) {              //pwm on
       pwmMixer1.gain(1, 0.0);     //1 is dry audio
@@ -770,7 +770,7 @@ void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
   float val = (float) map((float) pressure, 0.0, 127.0, 0.0, 1.0);
   float res = (float) map((float) pressure, 0.0, 127.0, 0.7, 5.0);
   float octaves = (float) map((float) pressure, 0.0, 127.0, 0.25, 3.5);
-  a1a1Aa = (float) map(pressure, 0.0, 127.0, 2.0, 600.0);
+  a1a1Aa = (float) map((float) pressure, 0.0, 127.0, 2.0, 600.0);
   
   /////
   //AudioNoInterrupts();
