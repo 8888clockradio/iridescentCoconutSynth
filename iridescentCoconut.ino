@@ -98,7 +98,7 @@ Bounce button0 = Bounce(28, 15);
 Bounce button1 = Bounce(39, 15);  // 15 = 15 ms debounce time
 Bounce button2 = Bounce(30, 15);
 
-bool bypassInstrumentMode = true;
+bool bypassInstrumentMode = false;
 bool bypassInstrumentModeClone = false;
 
 #ifdef TEENSY_41_PINS
@@ -347,8 +347,8 @@ void loop() {
   usbMIDI.read();
 
   if (bypassInstrumentMode) {
-    betweenMixer1.gain(0, 0.33);
-    betweenMixer2.gain(0, 0.33);
+    betweenMixer1.gain(0, 0.0);
+    betweenMixer2.gain(0, 0.0);
     MasterOut1.gain(3, 1.0);
     MasterOut2.gain(3, 1.0);
   }
