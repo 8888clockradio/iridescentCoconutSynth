@@ -206,15 +206,15 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   if (channel == 2) {
     //issues here too with the bool not always firing
     if (note == 33) { //channel 2 A1
-      if (instrumentSwitch)
+      if (*mainFilebypassInstrumentMode)
       {
-        instrumentSwitch = false;
-        *mainFilebypassInstrumentMode = true;
+        //instrumentSwitch = false;
+        *mainFilebypassInstrumentMode = false;
         Serial.println("instrumentSwitch = false");
       }
       else {
-        instrumentSwitch = true;
-        *mainFilebypassInstrumentMode = false;
+        //instrumentSwitch = true;
+        *mainFilebypassInstrumentMode = true;
         Serial.println("instrumentSwitch = true");
       }
     }
