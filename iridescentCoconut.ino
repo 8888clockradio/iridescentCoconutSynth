@@ -89,7 +89,9 @@ AudioEffectMultiply      bypassMultiply2;      //xy=340,721
 AudioConnection          byMultCord1(usb1, 0, bypassMultiply1, 0);
 AudioConnection          byMultCord2(usb1, 1, bypassMultiply2, 0);
 AudioConnection          MObM1(MasterOut1, 0, bypassMultiply1, 1);
-AudioConnection          MObM2(MasterOut2, 1, bypassMultiply2, 1);
+AudioConnection          MObM2(MasterOut2, 0, bypassMultiply2, 1);
+AudioConnection          byMultMo1(bypassMultiply1, 0, MasterOut1, 3);
+AudioConnection          byMultMo2(bypassMultiply2, 0, MasterOut2, 3);
 
 
 Bounce button0 = Bounce(28, 15);
