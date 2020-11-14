@@ -86,12 +86,10 @@ AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
 AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
 
 //might create feedback loop
+AudioConnection          byMultCord1(betweenMixer1, 0, bypassCombine1, 0);
+AudioConnection          byMultCord2(betweenMixer2, 0, bypassCombine2, 0);
 AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
 AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
-
-AudioConnection          byMultCord1(betweenMixer1, 2, bypassCombine1, 0);
-AudioConnection          byMultCord2(betweenMixer2, 2, bypassCombine2, 0);
-
 AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
 AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
 
