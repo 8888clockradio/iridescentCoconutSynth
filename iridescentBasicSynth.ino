@@ -135,7 +135,7 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       eHoldSustain = map((float) value, 0, 127, 0.0, 1.0); //0.0 to 1.0 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.phaseModulation(map(value, 0, 127, 30, 9000));
+      waveformMod[i].mod.phaseModulation(map((float)value, 0, 127, 30, 9000));
     }
 #ifdef DEBUG_ALLOC  
     Serial.println("frequency");
@@ -165,10 +165,10 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       eHoldRelease = map((float) value, 0, 127, 0, 3800); //11880 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.frequencyModulation(map(value, 0, 127, 0.1, 2.5));
+      waveformMod[i].mod.frequencyModulation(map((float) value, 0, 127, 0.1, 2.5));
     }
-    sineForm.frequency(map(value, 0, 127, 0.05, 200.0));
-    sineFM.frequency(map(value, 0, 127, 82.41, 8.18));
+    sineForm.frequency(map((float) value, 0, 127, 0.05, 200.0));
+    sineFM.frequency(map((float) value, 0, 127, 82.41, 8.18));
   }
   
   for (int i = 0; i < TOTAL_VOICES; ++i) {
@@ -339,13 +339,13 @@ void iridescentBasicSynth::updateSynth() {
   /////
 
     
-  float modWheel = (float) map(modulateValue, 0.0, 127.0, 0.0, 1.0);
+  float modWheel = (float) map((float)modulateValue, 0.0, 127.0, 0.0, 1.0);
   sineForm.amplitude(modWheel);  
   sineFM.amplitude(modWheel);
-  a1a1Aa = (float) map(xValue, 0.0, 127.0, 2.0, 100.0);
+  a1a1Aa = (float) map((float) xValue, 0.0, 127.0, 2.0, 100.0);
   //a1a1Ab = (float) map(yValue, 0.0, 127.0, 0.0, 1.0);
 
-  a1a1Ba = (float) map(yValue, 0.0, 127.0, 0.05, 80.33);
+  a1a1Ba = (float) map((float)yValue, 0.0, 127.0, 0.05, 80.33);
   //a1a1Bb = (float) map(yValue, 0.0, 127.0, 0.0, 1.0);
   
   //start here  
@@ -709,7 +709,7 @@ void iridescentBasicSynth::myAfterTouchPoly(byte channel, byte note, byte veloci
   float val = (float) map((float) velocity, 0.0, 127.0, 0.0, 1.0);
   float res = (float) map((float) velocity, 0.0, 127.0, 0.7, 5.0);
   float octaves = (float) map((float) velocity, 0.0, 127.0, 0.25, 3.5);
-  a1a1Aa = (float) map(xValue, 0.0, 127.0, 2.0, 600.0);
+  a1a1Aa = (float) map((float)xValue, 0.0, 127.0, 2.0, 600.0);
   
   //sineForm[waveformMod_id].amplitude(val);
   //sineFM[waveformMod_id].amplitude(val);
