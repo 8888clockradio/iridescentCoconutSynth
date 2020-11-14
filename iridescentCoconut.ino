@@ -312,9 +312,9 @@ void setup() {
 
 
   sgtl5000_1.enable();
-  sgtl5000_1.volume(0.78);
+  sgtl5000_1.volume(0.7);
   sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
-  sgtl5000_1.lineInLevel(0.78);
+  sgtl5000_1.lineInLevel(0.7);
   sgtl5000_1.unmuteHeadphone();
   sgtl5000_1.unmuteLineout();
   sgtl5000_1.audioPreProcessorEnable();
