@@ -156,7 +156,7 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       filter1.resonance((float) map((float) value, 0.0, 127.0, 0.7, 5.0));
     }
     if (lfoAd == 0) { //GREEN
-      eHoldAttack = map((float) value, 0, 127.0, 0.0, 1000.0); // 11880 GREEN
+      eHoldAttack = map((float) value, 0.0, 127.0, 0.0, 1000.0); // 11880 GREEN
     }
     if (lfoAd == 1) { //BLUE
       eHoldDecay = map((float) value, 0.0, 127.0, 0.0, 500.0); //11880 BLUE
