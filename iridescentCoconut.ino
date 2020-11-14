@@ -313,7 +313,7 @@ void setup() {
   usbMIDI.setHandleSystemReset(mySystemReset);
   usbMIDI.setHandleRealTimeSystem(myRealTimeSystem);
   
-  AudioMemory(96);  //still overkill 128
+  AudioMemory(128);  //still overkill 128 was 96
   
   /////
   //AudioNoInterrupts();
