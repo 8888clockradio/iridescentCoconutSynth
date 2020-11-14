@@ -86,8 +86,8 @@ AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
 AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
 
 //might create feedback loop
-AudioConnection          byMultCord1(usb1, 0, bypassCombine1, 0);
-AudioConnection          byMultCord2(usb1, 1, bypassCombine2, 0);
+AudioConnection          byMultCord1(betweenMixer1, 0, bypassCombine1, 0);
+AudioConnection          byMultCord2(betweenMixer2, 0, bypassCombine2, 0);
 AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
 AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
 AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
@@ -338,10 +338,10 @@ void setup() {
   /////
   //AudioInterrupts();
   ///////////
-  betweenMixer1.gain(0, 1.0);
-  betweenMixer2.gain(0, 1.0);
-  MasterOut1.gain(3, 0.0);
-  MasterOut2.gain(3, 0.0);
+  //betweenMixer1.gain(0, 1.0);
+  //betweenMixer2.gain(0, 1.0);
+  //MasterOut1.gain(3, 0.0);
+  //MasterOut2.gain(3, 0.0);
   
   delay(2000);
   
@@ -352,14 +352,12 @@ void loop() {
   //here are issues with pointers
   //and where the USB audio could be missing in action
   if (bypassInstrumentMode) {
-    betweenMixer1.gain(0, 0.0);
-    betweenMixer2.gain(0, 0.0);
-    MasterOut1.gain(3, 0.67);
-    MasterOut2.gain(3, 0.67);
+    betweenMixer1.gain(0, 1.0);
+    betweenMixer2.gain(0, 1.0);
+    MasterOut1.gain(3, 1.0);
+    MasterOut2.gain(3, 1.0);
   }
   else {
-    //betweenMixer1.gain(0, 1.0);
-    //betweenMixer2.gain(0, 1.0);
     betweenMixer1.gain(0, 1.0);
     betweenMixer2.gain(0, 1.0);
     MasterOut1.gain(3, 0.0);
