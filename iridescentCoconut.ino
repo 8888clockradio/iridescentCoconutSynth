@@ -98,7 +98,7 @@ Bounce button0 = Bounce(28, 15);
 Bounce button1 = Bounce(39, 15);  // 15 = 15 ms debounce time
 Bounce button2 = Bounce(30, 15);
 
-bool bypassInstrumentMode = false;
+bool bypassInstrumentMode = true;
 bool bypassInstrumentModeClone = false;
 
 #ifdef TEENSY_41_PINS
