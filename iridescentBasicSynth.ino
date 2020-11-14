@@ -205,54 +205,54 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   #endif //DEBUG_ALLOC  
   if (channel == 2) {
     if (note == 36) { //channel 2 C1
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("button0Trig - true");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
       button0Trig = true;
     }
     if (note == 38) { //channel 2 D1
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("button1Trig - true");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
       button1Trig = true;
     }
     if (note == 40) { //channel 2 E1
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("button2Trig - true");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
       button2Trig = true;
     }
     if (note == 41) { //channel 2 F1
       if (filter == 0) {
         filter = 1;
-        #ifdef DEBUG_ALLOC
+        //#ifdef DEBUG_ALLOC
         Serial.println("Band Pass selected");
-        #endif //DEBUG_ALLOC 
+        //#endif //DEBUG_ALLOC 
       }
       else if (filter == 1) {
         filter = 2;
-        #ifdef DEBUG_ALLOC
+        //#ifdef DEBUG_ALLOC
         Serial.println("High Pass selected");
-        #endif //DEBUG_ALLOC 
+        //#endif //DEBUG_ALLOC 
       }
       else if (filter == 2) {
         filter = 0;
-        #ifdef DEBUG_ALLOC
+        //#ifdef DEBUG_ALLOC
         Serial.println("Low Pass selected");
-        #endif //DEBUG_ALLOC
+        //#endif //DEBUG_ALLOC
       }
     }
     if (note == 43) { //channel 2 G1
       if (pwmBypass) {
-        #ifdef DEBUG_ALLOC
+        //#ifdef DEBUG_ALLOC
         Serial.println("pwmBypass off");
-        #endif //DEBUG_ALLOC
+        //#endif //DEBUG_ALLOC
         pwmBypass = false;
       }
       else {
-        #ifdef DEBUG_ALLOC
+        //#ifdef DEBUG_ALLOC
         Serial.println("pwmBypass on");
-        #endif //DEBUG_ALLOC
+        //#endif //DEBUG_ALLOC
         pwmBypass = true;
       }
     }
