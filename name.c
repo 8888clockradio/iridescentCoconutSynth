@@ -14,6 +14,9 @@
 
 // Edit these lines to create your own name.  The length must
 // match the number of characters in your custom name.
+#define MANUFACTURER_NAME  {'i','r','i','d','e','s', 'c', 'e', 'n', 't'}
+#define MANUFACTURER_NAME_LEN 10
+
 
 #define MIDI_NAME   {'i','r','i','d','e','s','c','e','n','t',' ','C','o','c','o','n','u','t'}
 #define MIDI_NAME_LEN  18
@@ -24,4 +27,17 @@ struct usb_string_descriptor_struct usb_string_product_name = {
         2 + MIDI_NAME_LEN * 2,
         3,
         MIDI_NAME
+};
+
+struct usb_string_descriptor_struct usb_string_manufacturer_name = {
+  2 + MANUFACTURER_NAME_LEN * 2,
+  3,
+  MANUFACTURER_NAME
+};
+
+struct usb_string_descriptor_struct usb_string_serial_number = {
+  12,
+  3,
+  {
+    0,0,7,0,0,0,7,0,0,7  }
 };

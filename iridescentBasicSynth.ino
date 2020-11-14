@@ -131,8 +131,8 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       waveformMod[i].mod.phaseModulation(map(value, 0, 127, 30, 9000));
     }
     Serial.println("frequency");
-    //sineFM.frequency((float) map((float)value, 0.0, 127.0,  0.05, 20.9));
-    //sineForm.frequency((float) map((float)value, 0.0, 127.0, 26.0, 0.05));
+    sineFM.frequency((float) map((float)value, 0.0, 127.0,  0.05, 20.9));
+    sineForm.frequency((float) map((float)value, 0.0, 127.0, 26.0, 0.05));
   }
   /////
 
@@ -300,7 +300,9 @@ void iridescentBasicSynth::updateSynth() {
   button2.update();
   
   #ifdef DEBUG_ALLOC
-  if (millis() > (millisSeconds + 5000)) {
+  //unsigned long theMillis = millisSeconds + 5000;
+  if (millis() > ((unsigned long) millisSeconds + 5000)) {
+  //if (millis() > theMillis) {
     millisSeconds = millis();
     Serial.print("Audio Processor Usage: "); Serial.print(AudioProcessorUsage()); Serial.print('/'); 
     Serial.print(AudioProcessorUsageMax()); Serial.print(" ");  Serial.print(AudioProcessorUsage() / AudioProcessorUsageMax()); Serial.println('%');
@@ -691,28 +693,28 @@ void iridescentBasicSynth::myAfterTouchPoly(byte channel, byte note, byte veloci
 
   /////
   //map to good ratio
-  //float a1a1Aa = 2.0;
+  float a1a1Aa = 2.0;
   /////
   
-  /*int waveformMod_id = findVoice(channel, note);
+  int waveformMod_id = findVoice(channel, note);
   float val = (float) map((float) velocity, 0.0, 127.0, 0.0, 1.0);
   float res = (float) map((float) velocity, 0.0, 127.0, 0.7, 5.0);
   float octaves = (float) map((float) velocity, 0.0, 127.0, 0.25, 3.5);
-  a1a1Aa = (float) map(xValue, 0.0, 127.0, 2.0, 600.0);*/
+  a1a1Aa = (float) map(xValue, 0.0, 127.0, 2.0, 600.0);
   
   //sineForm[waveformMod_id].amplitude(val);
   //sineFM[waveformMod_id].amplitude(val);
 
   /////
   //pulsewidth modulation
-  //pwm1.frequency(a1a1Aa);
-  //pwm1.amplitude(val);
+  pwm1.frequency(a1a1Aa);
+  pwm1.amplitude(val);
   /////
 
   /////
   //filter modulation
-  //filter1.resonance(res);
-  //filter1.octaveControl(octaves);
+  filter1.resonance(res);
+  filter1.octaveControl(octaves);
   /////
 
   /////
@@ -739,13 +741,13 @@ void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
 
   /////
   //map to good ratio
-  //float a1a1Aa = 2.0;
+  float a1a1Aa = 2.0;
   /////
   
-  //float val = (float) map((float) pressure, 0.0, 127.0, 0.0, 1.0);
-  //float res = (float) map((float) pressure, 0.0, 127.0, 0.7, 5.0);
-  //float octaves = (float) map((float) pressure, 0.0, 127.0, 0.25, 3.5);
-  //a1a1Aa = (float) map(pressure, 0.0, 127.0, 2.0, 600.0);
+  float val = (float) map((float) pressure, 0.0, 127.0, 0.0, 1.0);
+  float res = (float) map((float) pressure, 0.0, 127.0, 0.7, 5.0);
+  float octaves = (float) map((float) pressure, 0.0, 127.0, 0.25, 3.5);
+  a1a1Aa = (float) map(pressure, 0.0, 127.0, 2.0, 600.0);
   
   /////
   //AudioNoInterrupts();
@@ -753,14 +755,14 @@ void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
   
   /////
   //pulsewidth modulation
-  //pwm1.frequency(a1a1Aa);
-  //pwm1.amplitude(val);
+  pwm1.frequency(a1a1Aa);
+  pwm1.amplitude(val);
   /////
 
   /////
   //filter modulation
-  //filter1.resonance(res);
-  //filter1.octaveControl(octaves);
+  filter1.resonance(res);
+  filter1.octaveControl(octaves);
   /////
 
   /////
