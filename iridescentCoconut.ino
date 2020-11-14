@@ -334,6 +334,9 @@ void setup() {
   synth1 = new iridescentBasicSynth(&synth1MasterOut1, &synth1MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
   synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentModeClone);
   //////
+
+  MasterOut1.gain(3, 0.0);
+  MasterOut2.gain(3, 0.0);
   
   /////
   //AudioInterrupts();
@@ -352,14 +355,14 @@ void loop() {
   //here are issues with pointers
   //and where the USB audio could be missing in action
   if (bypassInstrumentMode) {
-    betweenMixer1.gain(0, 1.0);
-    betweenMixer2.gain(0, 1.0);
+    //betweenMixer1.gain(0, 1.0);
+    //betweenMixer2.gain(0, 1.0);
     MasterOut1.gain(3, 1.0);
     MasterOut2.gain(3, 1.0);
   }
   else {
-    betweenMixer1.gain(0, 1.0);
-    betweenMixer2.gain(0, 1.0);
+    //betweenMixer1.gain(0, 1.0);
+    //betweenMixer2.gain(0, 1.0);
     MasterOut1.gain(3, 0.0);
     MasterOut2.gain(3, 0.0);
   }
