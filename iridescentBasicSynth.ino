@@ -82,7 +82,7 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
   filterHeaven1.gain(3, 1.0);
 
   sine1.amplitude(1.0);
-  sine1.frequency(50);
+  sine1.frequency(50.0);
 
   filter1.octaveControl(6);
   
