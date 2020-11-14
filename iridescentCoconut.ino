@@ -98,6 +98,7 @@ Bounce button0 = Bounce(28, 15);
 Bounce button1 = Bounce(39, 15);  // 15 = 15 ms debounce time
 Bounce button2 = Bounce(30, 15);
 
+bool bypassInstrumentMode = false;
 
 #ifdef TEENSY_41_PINS
 int redPin = A10;
@@ -329,8 +330,8 @@ void setup() {
 
   //////
   //create Synth Object
-  synth1 = new iridescentBasicSynth(&synth1MasterOut1, &synth1MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2);
-  synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2);
+  synth1 = new iridescentBasicSynth(&synth1MasterOut1, &synth1MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
+  synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
   //////
   
   /////
