@@ -210,12 +210,12 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
       if (instrumentSwitch)
       {
         instrumentSwitch = false;
-        *mainFilebypassInstrumentMode = false;
+        *mainFilebypassInstrumentMode = true;
         Serial.println("instrumentSwitch = false");
       }
       else {
         instrumentSwitch = true;
-        *mainFilebypassInstrumentMode = true;
+        *mainFilebypassInstrumentMode = false;
         Serial.println("instrumentSwitch = true");
       }
     }
