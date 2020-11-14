@@ -260,14 +260,14 @@ void setup() {
   while (!Serial);
   #endif //DEBUG_ALLOC 
 
-  //pinMode(28, INPUT_PULLUP);
-  //pinMode(29, INPUT_PULLUP);
-  //pinMode(30, INPUT_PULLUP);
-  //pinMode(redPin, OUTPUT);
-  //pinMode(greenPin, OUTPUT);
-  //pinMode(bluePin, OUTPUT);
-  //pinMode(ledPin, OUTPUT);
-  //pinMode(ledPin2, OUTPUT);
+  pinMode(28, INPUT_PULLUP);
+  pinMode(29, INPUT_PULLUP);
+  pinMode(30, INPUT_PULLUP);
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
 
   #ifdef WIFI_ENABLED
   pinMode (20, OUTPUT);
