@@ -63,14 +63,6 @@ AudioConnection          patchCord4(i2s2, 1, betweenMixer2, 1);
 
 /////
 
-//synth1 to MasterOut
-AudioConnection          patchCord14(synth1MasterOut1, 0, MasterOut1, 1);     //might need to make connection in setup
-AudioConnection          patchCord15(synth1MasterOut2, 0, MasterOut2, 1);     //might need to make connection in setup
-//synth2 to MasterOut
-AudioConnection          patchCord16(synth2MasterOut1, 0, MasterOut1, 2);
-AudioConnection          patchCord17(synth2MasterOut2, 0, MasterOut2, 2);
-//////
-
 AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
 AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
 
@@ -82,16 +74,25 @@ AudioConnection          patchCord10(betweenMixer1, 0, bypassMixer1, 0);
 AudioConnection          patchCord11(betweenMixer2, 0, bypassMixer2, 0);
 
 //might create feedback loop
+//AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
+//AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
 AudioConnection          byMultCord1(bypassMixer1, 0, bypassCombine1, 0);
 AudioConnection          byMultCord2(bypassMixer2, 0, bypassCombine2, 0);
-AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
-AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
-AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
-AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
+
+//AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
+//AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
 
 //connect audio in to out
 AudioConnection          patchCord22(bypassMixer1, 0, MasterOut1, 0);
 AudioConnection          patchCord23(bypassMixer2, 0, MasterOut2, 0);
+
+//synth1 to MasterOut
+AudioConnection          patchCord14(synth1MasterOut1, 0, bypassCombine1, 1);     //might need to make connection in setup
+AudioConnection          patchCord15(synth1MasterOut2, 0, bypassCombine2, 1);     //might need to make connection in setup
+//synth2 to MasterOut
+AudioConnection          patchCord16(synth2MasterOut1, 0, bypassCombine1, 2);
+AudioConnection          patchCord17(synth2MasterOut2, 0, bypassCombine2, 2);
+//////
 
 //////
 //output to computer
