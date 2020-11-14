@@ -333,7 +333,7 @@ void setup() {
 void loop() {
   usbMIDI.read();
   
-  //runUpdate on Syth Objects
+  //runUpdate on Synth Objects
   /////
   //AudioNoInterrupts();
   ///////////
