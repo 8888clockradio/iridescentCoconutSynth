@@ -27,11 +27,11 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
 
 
 
-  /*pinMode(redPin, OUTPUT);
+  pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
   pinMode(ledPin, OUTPUT);
-  pinMode(ledPin2, OUTPUT); */
+  pinMode(ledPin2, OUTPUT);
     
   setColorIn(255, 0, 0);
   digitalWrite(ledPin, LOW);
