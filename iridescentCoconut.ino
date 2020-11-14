@@ -71,17 +71,6 @@ AudioConnection          patchCord16(synth2MasterOut1, 0, MasterOut1, 2);
 AudioConnection          patchCord17(synth2MasterOut2, 0, MasterOut2, 2);
 //////
 
-//////
-//output to computer
-AudioConnection         patchCord5(MasterOut1, 0, usb2, 0);
-AudioConnection         patchCord7(MasterOut2, 0, usb2, 1);
-//output to line out
-AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
-AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
-//////
-
-
-
 AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
 AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
 
@@ -93,16 +82,29 @@ AudioConnection          patchCord10(betweenMixer1, 0, bypassMixer1, 0);
 AudioConnection          patchCord11(betweenMixer2, 0, bypassMixer2, 0);
 
 //might create feedback loop
-AudioConnection          byMultCord1(betweenMixer1, 0, bypassCombine1, 0);
-AudioConnection          byMultCord2(betweenMixer2, 0, bypassCombine2, 0);
+AudioConnection          byMultCord1(bypassMixer1, 0, bypassCombine1, 0);
+AudioConnection          byMultCord2(bypassMixer2, 0, bypassCombine2, 0);
 AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
 AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
 AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
 AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
 
 //connect audio in to out
-//AudioConnection          patchCord10(bypassMixer1, 0, MasterOut1, 0);
-//AudioConnection          patchCord11(bypassMixer2, 0, MasterOut2, 0);
+AudioConnection          patchCord22(bypassMixer1, 0, MasterOut1, 0);
+AudioConnection          patchCord23(bypassMixer2, 0, MasterOut2, 0);
+
+//////
+//output to computer
+AudioConnection         patchCord5(MasterOut1, 0, usb2, 0);
+AudioConnection         patchCord7(MasterOut2, 0, usb2, 1);
+//output to line out
+AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
+AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
+//////
+
+
+
+
 
 
 Bounce button0 = Bounce(28, 15);
@@ -366,7 +368,7 @@ void loop() {
   //here are issues with pointers
   //and where the USB audio could be missing in action
   if (bypassInstrumentMode) {
-    betweenMixer1.gain(0, 0.0);
+    /*betweenMixer1.gain(0, 0.0);
     betweenMixer2.gain(0, 0.0);
     MasterOut1.gain(3, 1.0);
     MasterOut2.gain(3, 1.0);
@@ -375,7 +377,7 @@ void loop() {
     betweenMixer1.gain(0, 1.0);
     betweenMixer2.gain(0, 1.0);
     MasterOut1.gain(3, 0.0);
-    MasterOut2.gain(3, 0.0);
+    MasterOut2.gain(3, 0.0);*/
   }
   
   //runUpdate on Synth Objects
