@@ -1016,14 +1016,14 @@ void iridescentBasicSynth::freeVoices() {
 }
 
 void iridescentBasicSynth::printVoices() {
-  #ifdef DEBUG_ALLOC  
+  //#ifdef DEBUG_ALLOC  
   static int last_notes_played = notes_played;
   if (last_notes_played == notes_played)
     return;
   last_notes_played = notes_played;
   int usage = AudioProcessorUsage();
-  Serial.printf("\nCPU:%03i voices:%02i CPU/Voice:%02i evict:%02i\n", usage, used_voices, usage / used_voices, evict_voice);
+  Serial.printf("\nCPU:%03i voices:%02i CPU/Voice:%02i evict:%02i MemUsage:%i\n", usage, used_voices, usage / used_voices, evict_voice, AudioMemoryUsageMax());
   for (int i = 0; i < used_voices; ++i)
     Serial.printf(" %02hhu %-2s", voices[i].channel, note_map[voices[i].note % 12]);
-  #endif //DEBUG_ALLOC
+  //#endif //DEBUG_ALLOC
 }
