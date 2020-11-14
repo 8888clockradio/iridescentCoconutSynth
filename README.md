@@ -2,7 +2,7 @@
 a FM synthesizer SGTL5000 & Teensy 4.1 – SUPPORTS MIDI VIA USB
 
 
-Initially Copyright 2020 George C. Rosar II
+Copyright 2020 George C. Rosar II
 
 Licensed Apache 2.0
 
