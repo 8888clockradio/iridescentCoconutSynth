@@ -9,6 +9,9 @@ Licensed Apache 2.0
 There is a javascript front-end available at: 
 https://georgerosar.com/wavetable/
 
+You can hear a quick demo here:
+https://www.georgerosar.com/wp-content/uploads/2020/11/synthDemo.mp3
+
 The project was originally intended to connect via WI-FI and have a web-server to control it.
 
 
