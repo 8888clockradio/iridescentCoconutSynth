@@ -687,14 +687,14 @@ void iridescentBasicSynth::updateSynth() {
 }
 
 void iridescentBasicSynth::myAfterTouchPoly(byte channel, byte note, byte velocity) {
-  #ifdef DEBUG_ALLOC
+  //#ifdef DEBUG_ALLOC
   Serial.print("AfterTouch Change, ch=");
   Serial.print(channel, DEC);
   Serial.print(", note=");
   Serial.print(note, DEC);
   Serial.print(", velocity=");
   Serial.println(velocity, DEC);
-  #endif //DEBUG_ALLOC
+  //#endif //DEBUG_ALLOC
 
   /////
   //AudioNoInterrupts();
@@ -741,12 +741,12 @@ void iridescentBasicSynth::myProgramChange(byte channel, byte program) {
 }
 
 void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
-  #ifdef DEBUG_ALLOC
+  //#ifdef DEBUG_ALLOC
   Serial.print("After Touch, ch=");
   Serial.print(channel, DEC);
   Serial.print(", pressure=");
   Serial.println(pressure, DEC);
-  #endif //DEBUG_ALLOC
+  //#endif //DEBUG_ALLOC
 
   /////
   //map to good ratio
