@@ -107,8 +107,10 @@ private:
   AudioMixer4                       pwmMixer1;
 
   AudioMixer4                       bypassFilter1;
+  AudioMixer4                       bypassFilter2;
 
   AudioMixer4                       filterHeaven1;
+  AudioMixer4                       filterHeaven2;
 
   AudioMixer4*                      left;
   AudioMixer4*                      right;

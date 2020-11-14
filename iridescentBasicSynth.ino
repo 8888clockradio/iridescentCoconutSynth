@@ -135,13 +135,13 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       eHoldSustain = map((float) value, 0, 127, 0.0, 1.0); //0.0 to 1.0 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.phaseModulation(map((float)value, 0, 127, 30, 9000));
+      waveformMod[i].mod.phaseModulation(map((float) value, 0, 127, 30, 9000));
     }
 #ifdef DEBUG_ALLOC  
     Serial.println("frequency");
 #endif
-    sineFM.frequency((float) map((float)value, 0.0, 127.0,  0.05, 20.9));
-    sineForm.frequency((float) map((float)value, 0.0, 127.0, 26.0, 0.05));
+    sineFM.frequency((float) map((float) value, 0.0, 127.0,  0.05, 20.9));
+    sineForm.frequency((float) map((float) value, 0.0, 127.0, 26.0, 0.05));
   }
   /////
 
@@ -340,13 +340,13 @@ void iridescentBasicSynth::updateSynth() {
   /////
 
     
-  float modWheel = (float) map((float)modulateValue, 0.0, 127.0, 0.0, 1.0);
+  float modWheel = (float) map((float) modulateValue, 0.0, 127.0, 0.0, 1.0);
   sineForm.amplitude(modWheel);  
   sineFM.amplitude(modWheel);
   a1a1Aa = (float) map((float) xValue, 0.0, 127.0, 2.0, 100.0);
   //a1a1Ab = (float) map(yValue, 0.0, 127.0, 0.0, 1.0);
 
-  a1a1Ba = (float) map((float)yValue, 0.0, 127.0, 0.05, 80.33);
+  a1a1Ba = (float) map((float) yValue, 0.0, 127.0, 0.05, 80.33);
   //a1a1Bb = (float) map(yValue, 0.0, 127.0, 0.0, 1.0);
   
   //start here  
@@ -542,6 +542,8 @@ void iridescentBasicSynth::updateSynth() {
           filterHeaven1.gain(2, 1.0); //high pass
           filterHeaven1.gain(3, 1.0); //dry on
         }
+
+        
         #ifdef DEBUG_ALLOC
         Serial.println("Bypass turned on - WHITE MODE");
         #endif //DEBUG_ALLOC
@@ -556,6 +558,8 @@ void iridescentBasicSynth::updateSynth() {
         filterHeaven1.gain(1, 0.0);
         filterHeaven1.gain(2, 0.0);
         filterHeaven1.gain(3, 1.0);
+
+        
         
         digitalWrite(ledPin, LOW);
       }
