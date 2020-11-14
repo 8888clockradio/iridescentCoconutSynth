@@ -206,6 +206,7 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   if (channel == 2) {
     //issues here too with the bool not always firing
     if (note == 33) { //channel 2 A1
+<<<<<<< HEAD
       if (!*mainFilebypassInstrumentMode)
       {
         //instrumentSwitch = false;

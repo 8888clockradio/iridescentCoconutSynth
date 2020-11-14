@@ -350,18 +350,6 @@ void loop() {
   usbMIDI.read();
   //here are issues with pointers
   if (bypassInstrumentMode) {
-<<<<<<< HEAD
-    betweenMixer1.gain(0, 0.0);
-    betweenMixer2.gain(0, 0.0);
-    MasterOut1.gain(3, 0.67);
-    MasterOut2.gain(3, 0.67);
-  }
-  else {
-    //betweenMixer1.gain(0, 1.0);
-    //betweenMixer2.gain(0, 1.0);
-    betweenMixer1.gain(0, 1.0);
-    betweenMixer2.gain(0, 1.0);
-=======
     /*betweenMixer1.gain(0, 0.0);
     betweenMixer2.gain(0, 0.0);
     MasterOut1.gain(3, 1.0);
@@ -377,8 +365,6 @@ void loop() {
     MasterOut2.gain(3, 0.0);*/
     MasterOut1.gain(3, 0.0);
     MasterOut2.gain(3, 0.0);
-    
->>>>>>> parent of f97e9c9... updated
   }
   
   //runUpdate on Synth Objects
