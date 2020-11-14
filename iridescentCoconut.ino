@@ -345,6 +345,10 @@ void setup() {
 
 void loop() {
   usbMIDI.read();
+
+  if (bypassInstrumentMode) {
+
+  }
   
   //runUpdate on Synth Objects
   /////
