@@ -3,6 +3,16 @@
                  Apache License
            Version 2.0, January 2004
         http://www.apache.org/licenses/
+        
+        Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+        
+        NOT MINE
+        originally from: 
+        https://github.com/PaulStoffregen/Audio/blob/master/examples/Synthesis/WaveformsModulated/myWaveform.ino
 */
 
 const int16_t myWaveform[256] = {
