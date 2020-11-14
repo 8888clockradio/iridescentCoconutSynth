@@ -49,6 +49,8 @@ AudioOutputI2S           i2s1;
 AudioInputI2S            i2s2;           //xy=271,342
 AudioInputUSB            usb1;           //xy=222,174
 AudioOutputUSB           usb2;           //xy=785,189
+//note remember to add '#define MACOSX_ADAPTIVE_LIMIT' in teensy3/usb_audio.cpp and teensy4/usb_audio.cpp
+//NOTE!!!!!!!!!!!!!!!!
 
 /////
 //audio in from computer
@@ -300,8 +302,9 @@ void setup() {
   
   //AudioMemory(64); //best so far
   //AudioMemory(256);
-  AudioMemory(512);
+  //AudioMemory(512); //worked well
   //AudioMemory(71868);
+  AudioMemory(96);  //still overkill 128
   
   /////
   //AudioNoInterrupts();
