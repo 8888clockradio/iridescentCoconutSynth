@@ -532,50 +532,53 @@ void iridescentBasicSynth::updateSynth() {
     button0Trig = false;
   }
 
+  if (instrumentSwitch)   // for using line-in or usb from computer as source
+  {
+    *mainFilebypassInstrumentMode = true;
+  }
+  else {
+    *mainFilebypassInstrumentMode = false;
+  }
+
   if (button1.fallingEdge() || button1Trig) {
-    if (instrumentSwitch)   // for using line-in or usb from computer as source
-    {
-      if (!bypass) {
-        bypass = true;
-        if (filter == 0) {
-          filterHeaven1.gain(0, 1.0); //low pass
-          filterHeaven1.gain(1, 0.0); //band pass note octave range
-          filterHeaven1.gain(2, 0.0); //high pass
-          filterHeaven1.gain(3, 1.0); //dry on
-        }
-        if (filter == 1) {
-          filterHeaven1.gain(0, 0.0); //low pass
-          filterHeaven1.gain(1, 1.0); //band pass note octave range
-          filterHeaven1.gain(2, 0.0); //high pass
-          filterHeaven1.gain(3, 1.0); //dry on
-        }
-        if (filter == 2) {
-          filterHeaven1.gain(0, 0.0); //low pass
-          filterHeaven1.gain(1, 0.0); //band pass note octave range
-          filterHeaven1.gain(2, 1.0); //high pass
-          filterHeaven1.gain(3, 1.0); //dry on
-        }
-
-        *mainFilebypassInstrumentMode = true;
-        #ifdef DEBUG_ALLOC
-        Serial.println("Bypass turned on - WHITE MODE");
-        #endif //DEBUG_ALLOC
-        digitalWrite(ledPin, HIGH);
+    if (!bypass) {
+      bypass = true;
+      if (filter == 0) {
+        filterHeaven1.gain(0, 1.0); //low pass
+        filterHeaven1.gain(1, 0.0); //band pass note octave range
+        filterHeaven1.gain(2, 0.0); //high pass
+        filterHeaven1.gain(3, 1.0); //dry on
       }
-      else if (bypass) {
-        #ifdef DEBUG_ALLOC
-        Serial.println("Bypass turned off - WHITE MODE");
-        #endif //DEBUG_ALLOC
-        bypass = false;
-        filterHeaven1.gain(0, 0.0);
-        filterHeaven1.gain(1, 0.0);
-        filterHeaven1.gain(2, 0.0);
-        filterHeaven1.gain(3, 1.0);
-
-        
-        *mainFilebypassInstrumentMode = false;
-        digitalWrite(ledPin, LOW);
+      if (filter == 1) {
+        filterHeaven1.gain(0, 0.0); //low pass
+        filterHeaven1.gain(1, 1.0); //band pass note octave range
+        filterHeaven1.gain(2, 0.0); //high pass
+        filterHeaven1.gain(3, 1.0); //dry on
       }
+      if (filter == 2) {
+        filterHeaven1.gain(0, 0.0); //low pass
+        filterHeaven1.gain(1, 0.0); //band pass note octave range
+        filterHeaven1.gain(2, 1.0); //high pass
+        filterHeaven1.gain(3, 1.0); //dry on
+      }
+
+      
+      #ifdef DEBUG_ALLOC
+      Serial.println("Bypass turned on - WHITE MODE");
+      #endif //DEBUG_ALLOC
+      digitalWrite(ledPin, HIGH);
+    }
+    else if (bypass) {
+      #ifdef DEBUG_ALLOC
+      Serial.println("Bypass turned off - WHITE MODE");
+      #endif //DEBUG_ALLOC
+      bypass = false;
+      filterHeaven1.gain(0, 0.0);
+      filterHeaven1.gain(1, 0.0);
+      filterHeaven1.gain(2, 0.0);
+      filterHeaven1.gain(3, 1.0);
+
+      digitalWrite(ledPin, LOW);
     }
     else {
       if (bypass)
