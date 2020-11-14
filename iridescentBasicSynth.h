@@ -14,7 +14,7 @@ limitations under the License.
 class iridescentBasicSynth
 {
 public:  
-  iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounce *btn0, Bounce *btn1, Bounce *btn2, int rPin, int gPin, int bPin, int lPin, int lPin2);
+  iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounce *btn0, Bounce *btn1, Bounce *btn2, int rPin, int gPin, int bPin, int lPin, int lPin2, bool* instrumentBool);
 
   void myControlChange(byte channel, byte control, byte value);
   
