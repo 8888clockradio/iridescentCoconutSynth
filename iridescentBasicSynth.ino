@@ -61,6 +61,7 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
     voices[i].waveformMod_id = i;
     voices[i].channel = voices[i].note = 0xFF;
   }
+  
   sineForm.amplitude(1.0);
   sineForm.frequency(0.05);
   sineForm.phase(0.85 * rad * 1);

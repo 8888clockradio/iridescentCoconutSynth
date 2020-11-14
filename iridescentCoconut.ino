@@ -300,7 +300,7 @@ void setup() {
   
   //AudioMemory(64); //best so far
   //AudioMemory(256);
-  AudioMemory(32);
+  AudioMemory(1024);
   //AudioMemory(71868);
   
   /////
