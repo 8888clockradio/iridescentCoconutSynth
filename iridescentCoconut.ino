@@ -355,8 +355,8 @@ void loop() {
   else {
     //betweenMixer1.gain(0, 1.0);
     //betweenMixer2.gain(0, 1.0);
-    betweenMixer1.gain(0, 0.0);
-    betweenMixer2.gain(0, 0.0);
+    betweenMixer1.gain(0, 1.0);
+    betweenMixer2.gain(0, 1.0);
     MasterOut1.gain(3, 0.0);
     MasterOut2.gain(3, 0.0);
   }
