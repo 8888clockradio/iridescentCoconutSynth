@@ -255,10 +255,10 @@ void printBytes(const byte *data, unsigned int size) {
 }
 
 void setup() {
-  #ifdef DEBUG_ALLOC    
+  //#ifdef DEBUG_ALLOC    
   Serial.begin(115200);
   while (!Serial);
-  #endif //DEBUG_ALLOC 
+  //#endif //DEBUG_ALLOC 
 
   pinMode(28, INPUT_PULLUP);
   pinMode(29, INPUT_PULLUP);
