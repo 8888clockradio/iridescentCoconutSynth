@@ -710,7 +710,7 @@ void iridescentBasicSynth::myAfterTouchPoly(byte channel, byte note, byte veloci
   float val = (float) map((float) velocity, 0.0, 127.0, 0.0, 1.0);
   float res = (float) map((float) velocity, 0.0, 127.0, 0.7, 5.0);
   float octaves = (float) map((float) velocity, 0.0, 127.0, 0.25, 3.5);
-  a1a1Aa = (float) map((float)xValue, 0.0, 127.0, 2.0, 600.0);
+  a1a1Aa = (float) map((float) xValue, 0.0, 127.0, 2.0, 600.0);
   
   //sineForm[waveformMod_id].amplitude(val);
   //sineFM[waveformMod_id].amplitude(val);
@@ -915,7 +915,7 @@ void iridescentBasicSynth::myStop() {
 
 void iridescentBasicSynth::myActiveSensing() {
   #ifdef DEBUG_ALLOC
-  Serial.println("Actvice Sensing");
+  Serial.println("Active Sensing");
   #endif //DEBUG_ALLOC
 }
 

@@ -141,8 +141,8 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     }
  }
  else {
-    synth1->myNoteOn(channel, note, velocity);
-    synth2->myNoteOn(channel, note, velocity);
+  synth1->myNoteOn(channel, note, velocity);
+  synth2->myNoteOn(channel, note, velocity);
  }
   /////
   //AudioInterrupts();
@@ -220,8 +220,8 @@ void myClock() {
 }
 
 void myStart() {
-   synth1->myStart();
-   synth2->myStart();
+  synth1->myStart();
+  synth2->myStart();
 }
 
 void myContinue() {
