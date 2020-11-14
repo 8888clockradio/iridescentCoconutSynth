@@ -126,16 +126,16 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       filter1.frequency((float) map((float) value, 0.0, 127.0, 50.0, 5000.0));
     }
     if (lfoAd == 0) { //Blue after Red
-      eHoldDelay = map((float) value, 0, 127, 0, 20); //200 GREEN
+      eHoldDelay = map((float) value, 0.0, 127.0, 0.0, 20.0); //200 GREEN
     }
     if (lfoAd == 1) { //Green
-      eHoldHold = map((float) value, 0, 127, 0, 11880); // 11880 BLUE
+      eHoldHold = map((float) value, 0.0, 127.0, 0.0, 11880.0); // 11880 BLUE
     }
     if (lfoAd == 2) { //Purple
-      eHoldSustain = map((float) value, 0, 127, 0.0, 1.0); //0.0 to 1.0 PURPLE
+      eHoldSustain = map((float) value, 0.0, 127.0, 0.0, 1.0); //0.0 to 1.0 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.phaseModulation(map((float) value, 0, 127, 30, 9000));
+      waveformMod[i].mod.phaseModulation(map((float) value, 0.0, 127.0, 30.0, 9000.0));
     }
 #ifdef DEBUG_ALLOC  
     Serial.println("frequency");
@@ -153,22 +153,22 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
     if (bypass)
     {
       //sine2.frequency(map((float) value, 0, 127, 50.0, 5000.0)); //add something here later
-      filter1.resonance((float) map((float) value, 0, 127, 0.7, 5.0));
+      filter1.resonance((float) map((float) value, 0.0, 127.0, 0.7, 5.0));
     }
     if (lfoAd == 0) { //GREEN
-      eHoldAttack = map((float) value, 0, 127, 0, 1000); // 11880 GREEN
+      eHoldAttack = map((float) value, 0, 127.0, 0.0, 1000.0); // 11880 GREEN
     }
     if (lfoAd == 1) { //BLUE
-      eHoldDecay = map((float) value, 0, 127, 0, 500); //11880 BLUE
+      eHoldDecay = map((float) value, 0.0, 127.0, 0.0, 500.0); //11880 BLUE
     }
     if (lfoAd == 2) { //PURPLE
-      eHoldRelease = map((float) value, 0, 127, 0, 3800); //11880 PURPLE
+      eHoldRelease = map((float) value, 0.0, 127.0, 0.0, 3800.0); //11880 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.frequencyModulation(map((float) value, 0, 127, 0.1, 2.5));
+      waveformMod[i].mod.frequencyModulation(map((float) value, 0.0, 127.0, 0.1, 2.5));
     }
-    sineForm.frequency(map((float) value, 0, 127, 0.05, 200.0));
-    sineFM.frequency(map((float) value, 0, 127, 82.41, 8.18));
+    sineForm.frequency(map((float) value, 0.0, 127.0, 0.05, 200.0));
+    sineFM.frequency(map((float) value, 0.0, 127.0, 82.41, 8.18));
   }
   
   for (int i = 0; i < TOTAL_VOICES; ++i) {
