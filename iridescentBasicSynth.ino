@@ -545,7 +545,7 @@ void iridescentBasicSynth::updateSynth() {
           filterHeaven1.gain(3, 1.0); //dry on
         }
 
-        mainFilebypassInstrumentMode* = true;
+        *mainFilebypassInstrumentMode = true;
         #ifdef DEBUG_ALLOC
         Serial.println("Bypass turned on - WHITE MODE");
         #endif //DEBUG_ALLOC
@@ -562,7 +562,7 @@ void iridescentBasicSynth::updateSynth() {
         filterHeaven1.gain(3, 1.0);
 
         
-        mainFilebypassInstrumentMode* = false;
+        *mainFilebypassInstrumentMode = false;
         digitalWrite(ledPin, LOW);
       }
     }

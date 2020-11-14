@@ -72,7 +72,7 @@ private:
   bool button1Trig = true;  //eventually return to false
   bool button2Trig = false;
   bool bypass = false;
-  bool* mainFilebypassInstrumentMode;
+  bool *mainFilebypassInstrumentMode = nullptr;
 
   int millisSeconds = 0;
   
