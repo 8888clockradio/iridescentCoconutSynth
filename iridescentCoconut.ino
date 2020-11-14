@@ -50,7 +50,7 @@ AudioInputI2S            i2s2;           //xy=271,342
 AudioInputUSB            usb1;           //xy=222,174
 AudioOutputUSB           usb2;           //xy=785,189
 //note remember to add '#define MACOSX_ADAPTIVE_LIMIT' in teensy3/usb_audio.cpp and teensy4/usb_audio.cpp
-//NOTE!!!!!!!!!!!!!!!!
+//NOTE!!!!!!!!!!!!!!!! /Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy3 and /Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy4
 
 /////
 //audio in from computer
