@@ -346,6 +346,7 @@ void setup() {
 void loop() {
   usbMIDI.read();
   //here are issues with pointers
+  //and where the USB audio could be missing in action
   if (bypassInstrumentMode) {
     betweenMixer1.gain(0, 0.0);
     betweenMixer2.gain(0, 0.0);
