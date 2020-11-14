@@ -18,7 +18,7 @@ You will have to slightly modify two teensyduino files:
 ```bash
 /Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy3/usb_audio.cpp
 ```
-and 
+AND
 ```bash
 /Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy4/usb_audio.cpp
 ```
