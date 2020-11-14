@@ -580,7 +580,7 @@ void iridescentBasicSynth::updateSynth() {
 
       digitalWrite(ledPin, LOW);
     }
-    else {
+    /*else {
       if (bypass)
       {
         #ifdef DEBUG_ALLOC
@@ -620,7 +620,7 @@ void iridescentBasicSynth::updateSynth() {
         
         digitalWrite(ledPin, HIGH);
       }
-    }
+    }*/
     button1Trig = false;
   }
 
