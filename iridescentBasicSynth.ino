@@ -204,6 +204,7 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   Serial.println(velocity, DEC);
   #endif //DEBUG_ALLOC  
   if (channel == 2) {
+    //issues here too with the bool not always firing
     if (note == 33) { //channel 2 A1
       if (instrumentSwitch)
       {
