@@ -300,10 +300,6 @@ void setup() {
   usbMIDI.setHandleSystemReset(mySystemReset);
   usbMIDI.setHandleRealTimeSystem(myRealTimeSystem);
   
-  //AudioMemory(64); //best so far
-  //AudioMemory(256);
-  //AudioMemory(512); //worked well
-  //AudioMemory(71868);
   AudioMemory(96);  //still overkill 128
   
   /////
