@@ -62,36 +62,15 @@ AudioConnection          patchCord4(i2s2, 1, betweenMixer2, 1);
 //////
 
 /////
-
-AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
-AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
-
-
-AudioMixer4              bypassMixer1;         //xy=247,260
-AudioMixer4              bypassMixer2;         //xy=247,260
 //connect audio in to out
-AudioConnection          patchCord10(betweenMixer1, 0, bypassMixer1, 0);
-AudioConnection          patchCord11(betweenMixer2, 0, bypassMixer2, 0);
-
-//might create feedback loop
-//AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
-//AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
-AudioConnection          byMultCord1(bypassMixer1, 0, bypassCombine1, 0);
-AudioConnection          byMultCord2(bypassMixer2, 0, bypassCombine2, 0);
-
-//AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
-//AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
-
-//connect audio in to out
-AudioConnection          patchCord22(bypassMixer1, 0, MasterOut1, 0);
-AudioConnection          patchCord23(bypassMixer2, 0, MasterOut2, 0);
-
+AudioConnection          patchCord10(betweenMixer1, 0, MasterOut1, 0);
+AudioConnection          patchCord11(betweenMixer2, 0, MasterOut2, 0);
 //synth1 to MasterOut
-AudioConnection          patchCord14(synth1MasterOut1, 0, bypassCombine1, 1);     //might need to make connection in setup
-AudioConnection          patchCord15(synth1MasterOut2, 0, bypassCombine2, 1);     //might need to make connection in setup
+AudioConnection          patchCord14(synth1MasterOut1, 0, MasterOut1, 1);     //might need to make connection in setup
+AudioConnection          patchCord15(synth1MasterOut2, 0, MasterOut2, 1);     //might need to make connection in setup
 //synth2 to MasterOut
-AudioConnection          patchCord16(synth2MasterOut1, 0, bypassCombine1, 2);
-AudioConnection          patchCord17(synth2MasterOut2, 0, bypassCombine2, 2);
+AudioConnection          patchCord16(synth2MasterOut1, 0, MasterOut1, 2);
+AudioConnection          patchCord17(synth2MasterOut2, 0, MasterOut2, 2);
 //////
 
 //////
@@ -103,9 +82,16 @@ AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
 AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
 //////
 
+AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
+AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
 
-
-
+//might create feedback loop
+AudioConnection          byMultCord1(usb1, 0, bypassCombine1, 0);
+AudioConnection          byMultCord2(usb1, 1, bypassCombine2, 0);
+AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
+AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
+AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
+AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
 
 
 Bounce button0 = Bounce(28, 15);
@@ -348,17 +334,10 @@ void setup() {
   synth1 = new iridescentBasicSynth(&synth1MasterOut1, &synth1MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
   synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentModeClone);
   //////
-
-  MasterOut1.gain(3, 0.0);
-  MasterOut2.gain(3, 0.0);
   
   /////
   //AudioInterrupts();
   ///////////
-  //betweenMixer1.gain(0, 1.0);
-  //betweenMixer2.gain(0, 1.0);
-  //MasterOut1.gain(3, 0.0);
-  //MasterOut2.gain(3, 0.0);
   
   delay(2000);
   
@@ -367,28 +346,19 @@ void setup() {
 void loop() {
   usbMIDI.read();
   //here are issues with pointers
-  //and where the USB audio could be missing in action
   if (bypassInstrumentMode) {
-    /*betweenMixer1.gain(0, 0.0);
-    betweenMixer2.gain(0, 0.0);
-    MasterOut1.gain(3, 1.0);
-    MasterOut2.gain(3, 1.0);*/
     betweenMixer1.gain(0, 0.0);
     betweenMixer2.gain(0, 0.0);
-    MasterOut1.gain(3, 1.0);
-    MasterOut2.gain(3, 1.0);
-    
+    MasterOut1.gain(3, 0.67);
+    MasterOut2.gain(3, 0.67);
   }
   else {
-    /*betweenMixer1.gain(0, 1.0);
-    betweenMixer2.gain(0, 1.0);
-    MasterOut1.gain(3, 0.0);
-    MasterOut2.gain(3, 0.0);*/
+    //betweenMixer1.gain(0, 1.0);
+    //betweenMixer2.gain(0, 1.0);
     betweenMixer1.gain(0, 1.0);
     betweenMixer2.gain(0, 1.0);
     MasterOut1.gain(3, 0.0);
     MasterOut2.gain(3, 0.0);
-    
   }
   
   //runUpdate on Synth Objects
