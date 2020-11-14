@@ -21,7 +21,7 @@ limitations under the License.
 #include "constsAndStructs.h"
 #include "iridescentBasicSynth.h"
 
-#define DEBUG_ALLOC
+//#define DEBUG_ALLOC
 #define TEENSY_41_PINS      //use TEENSY 4_1 PINS rather than 3_6
 #define POLY_AFTER_TOUCH    //otherwise channel aftertouch
 //#define WIFI_ENABLED
@@ -300,7 +300,7 @@ void setup() {
   
   //AudioMemory(64); //best so far
   //AudioMemory(256);
-  AudioMemory(1024);
+  AudioMemory(512);
   //AudioMemory(71868);
   
   /////

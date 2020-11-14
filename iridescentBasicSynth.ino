@@ -137,7 +137,9 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
     for (int i = 0; i < TOTAL_VOICES; ++i) {
       waveformMod[i].mod.phaseModulation(map(value, 0, 127, 30, 9000));
     }
+#ifdef DEBUG_ALLOC  
     Serial.println("frequency");
+#endif
     sineFM.frequency((float) map((float)value, 0.0, 127.0,  0.05, 20.9));
     sineForm.frequency((float) map((float)value, 0.0, 127.0, 26.0, 0.05));
   }
@@ -434,7 +436,7 @@ void iridescentBasicSynth::updateSynth() {
   }
   
   /////
-  AudioInterrupts();
+  //AudioInterrupts();
   ///////////
 
   if (button0.fallingEdge() || button0Trig) {
@@ -502,7 +504,7 @@ void iridescentBasicSynth::updateSynth() {
     //WAVEFORM_SAWTOOTH_REVERSE, WAVEFORM_TRIANGLE_VARIABLE, WAVEFORM_ARBITRARY, WAVEFORM_SAMPLE_HOLD
 
     /////
-    AudioNoInterrupts();
+    //AudioNoInterrupts();
     ///////////
     
     for (int i = 0; i < TOTAL_VOICES; i++) {
@@ -510,7 +512,7 @@ void iridescentBasicSynth::updateSynth() {
     }
 
     /////
-    AudioInterrupts();
+    //AudioInterrupts();
     ///////////
     
     button0Trig = false;
