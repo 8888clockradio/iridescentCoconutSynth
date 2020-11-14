@@ -48,13 +48,9 @@ for port_name in midi_inSide.ports:
 #lists all midi out ports starting with 0
 for port_name in midi_outSide.ports:
 	print port_name
-	
-#END HIGHLIGHT PASTE ABOVE CODE INTO PYTHON INTERPRETER
-#PRESS RETURN A COUPLE OF TIMES
-#ADJUST THE VALUES BELOW THEN PASTE THE REST OF THE CODE AND PRESS RETURN A COUPLE TIMES
 
-#use values from the two lists above
-midi_inSide.open_port(1)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE
+
+midi_inSide.open_port(2)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE
 midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device  SENDS HERE
 midi_inSide.callback = callback #actually assigns the midi thru with function callback
 ```
