@@ -51,7 +51,7 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
     waveformMod[i].mod.phaseModulation((float) 0.33 * rad * i);
     waveformMod[i].mod.amplitude(1);
     waveformMod[i].mod.begin(waveform_type);
-    waveformMod[i].mod.arbitraryWaveform(coolIphoneWave, 12543.0);
+    waveformMod[i].mod.arbitraryWaveform(SawDerange, 12543.0);
     //waveformMod[i].mod.frequencyModulation(3.5);
     envelopeMod[i].attack(4.2);
     envelopeMod[i].hold(6.1);
