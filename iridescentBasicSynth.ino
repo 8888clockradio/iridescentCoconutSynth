@@ -207,15 +207,17 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   #endif //DEBUG_ALLOC  
   if (channel == 2) {
     if (note == 35) { //channel 2 B1
-      Serial.println("instrumentSwitch = true");
       if (instrumentSwitch)
       {
         instrumentSwitch = false;
+        *mainFilebypassInstrumentMode = false;
+        Serial.println("instrumentSwitch = false");
       }
       else {
         instrumentSwitch = true;
+        *mainFilebypassInstrumentMode = true;
+        Serial.println("instrumentSwitch = true");
       }
-      
     }
     if (note == 36) { //channel 2 C1
       //#ifdef DEBUG_ALLOC
@@ -532,14 +534,6 @@ void iridescentBasicSynth::updateSynth() {
     button0Trig = false;
   }
 
-  if (instrumentSwitch)   // for using line-in or usb from computer as source
-  {
-    *mainFilebypassInstrumentMode = true;
-  }
-  else {
-    *mainFilebypassInstrumentMode = false;
-  }
-
   if (button1.fallingEdge() || button1Trig) {
     if (!bypass) {
       bypass = true;
@@ -632,7 +626,7 @@ void iridescentBasicSynth::updateSynth() {
       Serial.println("lfo-1");
       #endif //DEBUG_ALLOC     
       lfoAd = 1;  //actual value
-      instrumentSwitch = false;
+      //instrumentSwitch = false;
       setColorIn(0, 255, 0);
     }
     else if (lfoAd == 1) {
@@ -642,7 +636,7 @@ void iridescentBasicSynth::updateSynth() {
       Serial.println("lfo-2");
       #endif //DEBUG_ALLOC      
       lfoAd = 2;
-      instrumentSwitch = false;
+      //instrumentSwitch = false;
       setColorIn(0, 0, 255);
     }
     else if (lfoAd == 2) {
@@ -652,7 +646,7 @@ void iridescentBasicSynth::updateSynth() {
       Serial.println("lfo-3");
       #endif //DEBUG_ALLOC         
       lfoAd = 3;
-      instrumentSwitch = false;
+      //instrumentSwitch = false;
       setColorIn(255, 255, 0);
     }
     else if (lfoAd == 3) {
@@ -665,7 +659,7 @@ void iridescentBasicSynth::updateSynth() {
       #ifdef DEBUG_ALLOC      
       Serial.println("instrument switch on");
       #endif //DEBUG_ALLOC       
-      instrumentSwitch = false;
+      //instrumentSwitch = false;
       setColorIn(255, 0, 255);
     }
     else if (lfoAd == 4) {
@@ -678,7 +672,7 @@ void iridescentBasicSynth::updateSynth() {
       #ifdef DEBUG_ALLOC
       Serial.println("instrument switch on");
       #endif //DEBUG_ALLOC 
-      instrumentSwitch = true;
+      //instrumentSwitch = true;
       //add line-in to synth or usb in from computer to synth
 
       setColorIn(255, 255, 255);
@@ -690,7 +684,7 @@ void iridescentBasicSynth::updateSynth() {
       Serial.println("lfo-0");
       #endif //DEBUG_ALLOC       
       lfoAd = 0;
-      instrumentSwitch = false;
+      //instrumentSwitch = false;
       setColorIn(255, 0, 0);
     }
     else {
@@ -700,7 +694,7 @@ void iridescentBasicSynth::updateSynth() {
       Serial.println("lfo default else statement");
       #endif //DEBUG_ALLOC   
       lfoAd = 0;
-      instrumentSwitch = false;
+      //instrumentSwitch = false;
       setColorIn(255, 0, 0);
     }
     button2Trig = false;
