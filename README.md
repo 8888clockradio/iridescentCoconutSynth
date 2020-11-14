@@ -14,6 +14,12 @@ https://www.georgerosar.com/wp-content/uploads/2020/11/synthDemo.mp3
 
 The project was originally intended to connect via WI-FI and have a web-server to control it.
 
+You will have to slightly modify two teensyduino files:
+/Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy3/usb_audio.cpp and /Applications/Arduino.app/Contents/Java/hardware/teensy/avr/cores/teensy4/usb_audio.cpp
+Add this line to near top of both files:
+```cpp
+#define MACOSX_ADAPTIVE_LIMIT
+```
 
 Here's some python help if you want to use python to link midi devices.
 
