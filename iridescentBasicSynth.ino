@@ -440,66 +440,66 @@ void iridescentBasicSynth::updateSynth() {
   ///////////
 
   if (button0.fallingEdge() || button0Trig) {
-    #ifdef DEBUG_ALLOC    
+    //#ifdef DEBUG_ALLOC    
     Serial.print("Control waveform: ");
-    #endif //DEBUG_ALLOC 
+    //#endif //DEBUG_ALLOC 
     if (waveform_type == WAVEFORM_SAMPLE_HOLD) {
       waveform_type = WAVEFORM_SINE;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_SINE");
-      #endif //DEBUG_ALLOC 
+      //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_SINE) {
       waveform_type = WAVEFORM_SQUARE;  //original value
       //waveform_type = WAVEFORM_TRIANGLE;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_SQUARE");
-      #endif //DEBUG_ALLOC 
+      //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_SQUARE) {
       waveform_type = WAVEFORM_TRIANGLE;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_TRIANGLE");
-      #endif //DEBUG_ALLOC 
+      //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_TRIANGLE) {
       waveform_type = WAVEFORM_PULSE;   //original value
       digitalWrite(ledPin2, HIGH);
       //waveform_type = WAVEFORM_SAWTOOTH;
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_PULSE");
-      #endif //DEBUG_ALLOC 
+      //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_PULSE) {
       waveform_type = WAVEFORM_SAWTOOTH;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_SAWTOOTH");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_SAWTOOTH) {
       waveform_type = WAVEFORM_SAWTOOTH_REVERSE;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_SAWTOOTH_REVERSE");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_SAWTOOTH_REVERSE) {
       waveform_type = WAVEFORM_TRIANGLE_VARIABLE;   //original value
       //waveform_type = WAVEFORM_ARBITRARY;
       digitalWrite(ledPin2, HIGH);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_TRIANGLE_VARIABLE");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_TRIANGLE_VARIABLE) {
       waveform_type = WAVEFORM_ARBITRARY;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_ARBITRARY");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_ARBITRARY) {
       waveform_type = WAVEFORM_SAMPLE_HOLD;
       digitalWrite(ledPin2, LOW);
-      #ifdef DEBUG_ALLOC
+      //#ifdef DEBUG_ALLOC
       Serial.println("WAVEFORM_SAMPLE_HOLD");
-      #endif //DEBUG_ALLOC
+      //#endif //DEBUG_ALLOC
     }
     //WAVEFORM_SAWTOOTH_REVERSE, WAVEFORM_TRIANGLE_VARIABLE, WAVEFORM_ARBITRARY, WAVEFORM_SAMPLE_HOLD
 
