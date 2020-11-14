@@ -152,11 +152,11 @@ void myNoteOn(byte channel, byte note, byte velocity) {
     else {
       synth2->myNoteOn(channel, note, velocity);
     }
- }
- else {
-  synth1->myNoteOn(channel, note, velocity);
-  synth2->myNoteOn(channel, note, velocity);
- }
+   }
+   else {
+    synth1->myNoteOn(channel, note, velocity);
+    synth2->myNoteOn(channel, note, velocity);
+   }
   /////
   //AudioInterrupts();
   ///////////
@@ -349,8 +349,8 @@ void loop() {
   if (bypassInstrumentMode) {
     betweenMixer1.gain(0, 0.0);
     betweenMixer2.gain(0, 0.0);
-    MasterOut1.gain(3, 0.67);
-    MasterOut2.gain(3, 0.67);
+    MasterOut1.gain(3, 0.78);
+    MasterOut2.gain(3, 0.78);
   }
   else {
     //betweenMixer1.gain(0, 1.0);
