@@ -69,7 +69,7 @@ private:
   int notes_played = 0;
 
   bool button0Trig = false;
-  bool button1Trig = false;
+  bool button1Trig = true;  //eventually return to false
   bool button2Trig = false;
   bool bypass = false;
   bool* mainFilebypassInstrumentMode;
