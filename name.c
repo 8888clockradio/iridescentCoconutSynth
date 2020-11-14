@@ -12,17 +12,10 @@ limitations under the License.
 */
 
 
-// To give your project a unique name, this code must be
-// placed into a .c file (its own tab).  It can not be in
-// a .cpp file or your main sketch (the .ino file).
-
 #include "usb_names.h"
 
-// Edit these lines to create your own name.  The length must
-// match the number of characters in your custom name.
 #define MANUFACTURER_NAME  {'i','r','i','d','e','s', 'c', 'e', 'n', 't'}
 #define MANUFACTURER_NAME_LEN 10
-
 
 #define MIDI_NAME   {'i','r','i','d','e','s','c','e','n','t',' ','C','o','c','o','n','u','t'}
 #define MIDI_NAME_LEN  18
