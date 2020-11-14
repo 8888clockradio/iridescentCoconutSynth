@@ -16,6 +16,8 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
   left = l;
   right = r;
 
+  mainFilebypassInstrumentMode = instrumentBool;
+
   fm1l1 = new AudioConnection(filterHeaven1, 0, *left, 0);
   fm1r1 = new AudioConnection(filterHeaven1, 0, *right, 0);
   
