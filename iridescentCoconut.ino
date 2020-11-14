@@ -82,6 +82,15 @@ AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
 AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
 //////
 
+AudioEffectMultiply      bypassMultiply1;      //xy=334,644
+AudioEffectMultiply      bypassMultiply2;      //xy=340,721
+
+//might create feedback loop
+AudioConnection          patchCord1(usb1, 0, bypassMultiply1, 0);
+AudioConnection          patchCord2(usb1, 1, bypassMultiply2, 0);
+AudioConnection          patchCord1(MasterOut1, 0, bypassMultiply1, 1);
+AudioConnection          patchCord2(MasterOut2, 1, bypassMultiply2, 1);
+
 
 Bounce button0 = Bounce(28, 15);
 Bounce button1 = Bounce(39, 15);  // 15 = 15 ms debounce time
