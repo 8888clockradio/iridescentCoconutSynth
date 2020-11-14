@@ -82,8 +82,8 @@ AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
 AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
 //////
 
-AudioEffectMultiply      bypassMultiply1;      //xy=334,644
-AudioEffectMultiply      bypassMultiply2;      //xy=340,721
+AudioEffectDigitalCombine      bypassMultiply1;      //xy=334,644
+AudioEffectDigitalCombine      bypassMultiply2;      //xy=340,721
 
 //might create feedback loop
 AudioConnection          byMultCord1(usb1, 0, bypassMultiply1, 0);
