@@ -206,11 +206,16 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   Serial.println(velocity, DEC);
   #endif //DEBUG_ALLOC  
   if (channel == 2) {
-    if (note == 35) { //channel 2 C1
-      //#ifdef DEBUG_ALLOC
-      Serial.println("button0Trig - true");
-      //#endif //DEBUG_ALLOC
-       = true;
+    if (note == 35) { //channel 2 B1
+      Serial.println("instrumentSwitch = true");
+      if (instrumentSwitch)
+      {
+        instrumentSwitch = false;
+      }
+      else {
+        instrumentSwitch = true;
+      }
+      
     }
     if (note == 36) { //channel 2 C1
       //#ifdef DEBUG_ALLOC
@@ -527,7 +532,8 @@ void iridescentBasicSynth::updateSynth() {
     button0Trig = false;
   }
 
-  if (instrumentSwitch)   // for using line-in or usb from computer as source
+  if (button1.fallingEdge() || button1Trig) {
+    if (instrumentSwitch)   // for using line-in or usb from computer as source
     {
       if (!bypass) {
         bypass = true;
@@ -570,46 +576,47 @@ void iridescentBasicSynth::updateSynth() {
         *mainFilebypassInstrumentMode = false;
         digitalWrite(ledPin, LOW);
       }
-
-  if (button1.fallingEdge() || button1Trig) {
-    if (bypass)
-    {
-      #ifdef DEBUG_ALLOC
-      Serial.println("Bypass turned off - REGULAR MODE");
-      #endif //DEBUG_ALLOC
-      bypass = false;
-      filterHeaven1.gain(0, 0.0);
-      filterHeaven1.gain(1, 0.0);
-      filterHeaven1.gain(2, 0.0);
-      filterHeaven1.gain(3, 1.0);
-      
-      digitalWrite(ledPin, LOW);
     }
     else {
-      #ifdef DEBUG_ALLOC
-      Serial.println("Bypass turned on - REGULAR MODE");
-      #endif //DEBUG_ALLOC
-      bypass = true;
-      if (filter == 0) {
-        filterHeaven1.gain(0, 1.0); //low pass
-        filterHeaven1.gain(1, 0.0); //band pass note octave range
-        filterHeaven1.gain(2, 0.0); //high pass
-        filterHeaven1.gain(3, 1.0); //dry on
+      if (bypass)
+      {
+        #ifdef DEBUG_ALLOC
+        Serial.println("Bypass turned off - REGULAR MODE");
+        #endif //DEBUG_ALLOC
+        bypass = false;
+        filterHeaven1.gain(0, 0.0);
+        filterHeaven1.gain(1, 0.0);
+        filterHeaven1.gain(2, 0.0);
+        filterHeaven1.gain(3, 1.0);
+        
+        digitalWrite(ledPin, LOW);
       }
-      if (filter == 1) {
-        filterHeaven1.gain(0, 0.0); //low pass
-        filterHeaven1.gain(1, 1.0); //band pass note octave range
-        filterHeaven1.gain(2, 0.0); //high pass
-        filterHeaven1.gain(3, 1.0); //dry on
+      else {
+        #ifdef DEBUG_ALLOC
+        Serial.println("Bypass turned on - REGULAR MODE");
+        #endif //DEBUG_ALLOC
+        bypass = true;
+        if (filter == 0) {
+          filterHeaven1.gain(0, 1.0); //low pass
+          filterHeaven1.gain(1, 0.0); //band pass note octave range
+          filterHeaven1.gain(2, 0.0); //high pass
+          filterHeaven1.gain(3, 1.0); //dry on
+        }
+        if (filter == 1) {
+          filterHeaven1.gain(0, 0.0); //low pass
+          filterHeaven1.gain(1, 1.0); //band pass note octave range
+          filterHeaven1.gain(2, 0.0); //high pass
+          filterHeaven1.gain(3, 1.0); //dry on
+        }
+        if (filter == 2) {
+          filterHeaven1.gain(0, 0.0); //low pass
+          filterHeaven1.gain(1, 0.0); //band pass note octave range
+          filterHeaven1.gain(2, 1.0); //high pass
+          filterHeaven1.gain(3, 1.0); //dry on
+        }
+        
+        digitalWrite(ledPin, HIGH);
       }
-      if (filter == 2) {
-        filterHeaven1.gain(0, 0.0); //low pass
-        filterHeaven1.gain(1, 0.0); //band pass note octave range
-        filterHeaven1.gain(2, 1.0); //high pass
-        filterHeaven1.gain(3, 1.0); //dry on
-      }
-      
-      digitalWrite(ledPin, HIGH);
     }
     button1Trig = false;
   }
