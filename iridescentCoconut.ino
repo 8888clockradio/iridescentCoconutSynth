@@ -24,6 +24,7 @@ limitations under the License.
 //#define DEBUG_ALLOC
 #define TEENSY_41_PINS      //use TEENSY 4_1 PINS rather than 3_6
 #define POLY_AFTER_TOUCH    //otherwise channel aftertouch
+#define LINE_LEVEL          //otherwise MIC
 //#define WIFI_ENABLED
 //#define LEDS_ENABLED
 
@@ -98,6 +99,9 @@ Bounce button0 = Bounce(28, 15);
 Bounce button1 = Bounce(39, 15);  // 15 = 15 ms debounce time
 Bounce button2 = Bounce(30, 15);
 
+int combineType = 0;
+bool muteBG = true;
+
 bool bypassInstrumentMode = false;
 //bool bypassInstrumentModeClone = false;
 
@@ -136,6 +140,37 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   //AudioNoInterrupts();
   ///////////
   if (channel == 2) {
+    //make independent for channel
+    if (note == 29) { //channel 2 E0
+      if (muteBG) {
+        muteBG = false;
+      }
+      else {
+        muteBG = true;
+      }
+    }
+    if (note == 31) { //channel 2 G0
+      if (combineType == 0) {
+        bypassCombine1.setCombineMode(AudioEffectDigitalCombine::XOR);
+        bypassCombine2.setCombineMode(AudioEffectDigitalCombine::XOR);
+        combineType = 1;
+      }
+      else if (combineType == 1) {
+        bypassCombine1.setCombineMode(AudioEffectDigitalCombine::AND);
+        bypassCombine2.setCombineMode(AudioEffectDigitalCombine::AND);
+        combineType = 2;
+      }
+      else if (combineType == 2) {
+        bypassCombine1.setCombineMode(AudioEffectDigitalCombine::MODULO);
+        bypassCombine2.setCombineMode(AudioEffectDigitalCombine::MODULO);
+        combineType = 3;
+      }
+      else if (combineType == 3) {
+        bypassCombine1.setCombineMode(AudioEffectDigitalCombine::OR);
+        bypassCombine2.setCombineMode(AudioEffectDigitalCombine::OR);
+        combineType = 0;
+      }
+    }
     if (note == 35) {       //channel 2 B1
       if (!selectSynth) {
         selectSynth = true;
@@ -323,7 +358,12 @@ void setup() {
 
   sgtl5000_1.enable();
   sgtl5000_1.volume(0.7);
+#ifdef LINE_LEVEL
   sgtl5000_1.inputSelect(AUDIO_INPUT_LINEIN);
+#endif
+#ifndef LINE_LEVEL
+  sgtl5000_1.inputSelect(AUDIO_INPUT_MIC);
+#endif
   sgtl5000_1.lineInLevel(0.7);
   sgtl5000_1.unmuteHeadphone();
   sgtl5000_1.unmuteLineout();
@@ -341,6 +381,8 @@ void setup() {
   ///////////
 
   //while (!synth1 || !synth2);
+  bypassCombine1.setCombineMode(AudioEffectDigitalCombine::OR);
+  bypassCombine2.setCombineMode(AudioEffectDigitalCombine::OR);
   
   delay(2000);
   
@@ -350,10 +392,19 @@ void loop() {
   usbMIDI.read();
   //here are issues with pointers
   if (bypassInstrumentMode) {
-    betweenMixer1.gain(0, 0.0);
-    betweenMixer2.gain(0, 0.0);
-    betweenMixer1.gain(1, 0.0);
-    betweenMixer2.gain(1, 0.0);
+    if (muteBG) {
+      betweenMixer1.gain(0, 0.0);
+      betweenMixer2.gain(0, 0.0);
+      betweenMixer1.gain(1, 0.0);
+      betweenMixer2.gain(1, 0.0);
+    }
+    else {
+      betweenMixer1.gain(0, 0.85);
+      betweenMixer2.gain(0, 0.85);
+      betweenMixer1.gain(1, 0.85);
+      betweenMixer2.gain(1, 0.85);
+    }
+
     MasterOut1.gain(1, 0.85);
     MasterOut2.gain(1, 0.85);
     MasterOut1.gain(2, 0.85);
