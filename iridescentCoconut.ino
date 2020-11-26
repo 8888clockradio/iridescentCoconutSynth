@@ -78,22 +78,52 @@ AudioConnection          patchCord17(synth2MasterOut2, 0, MasterOut2, 2);
 //output to computer
 AudioConnection         patchCord5(MasterOut1, 0, usb2, 0);
 AudioConnection         patchCord7(MasterOut2, 0, usb2, 1);
+
 //output to line out
 AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
 AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
 //////
-
+//for USB
 AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
 AudioEffectDigitalCombine      bypassCombine2;      //xy=340,721
 
+//////
+//for LINE-IN/MIC
+AudioEffectDigitalCombine      bypassCombine3;      //xy=334,644
+AudioEffectDigitalCombine      bypassCombine4;      //xy=340,721
+
 //might create feedback loop
+//usb
 AudioConnection          byMultCord1(usb1, 0, bypassCombine1, 0);
 AudioConnection          byMultCord2(usb1, 1, bypassCombine2, 0);
+
+//line/mic
+AudioConnection          byMultCord3(i2s2, 0, bypassCombine3, 0);
+AudioConnection          byMultCord4(i2s2, 1, bypassCombine4, 0);
+
+//usb
 AudioConnection          MObM1(MasterOut1, 0, bypassCombine1, 1);
 AudioConnection          MObM2(MasterOut2, 0, bypassCombine2, 1);
-AudioConnection          byMultMo1(bypassCombine1, 0, MasterOut1, 3);
-AudioConnection          byMultMo2(bypassCombine2, 0, MasterOut2, 3);
+//i2s2
+AudioConnection          MObM3(MasterOut1, 0, bypassCombine3, 1);
+AudioConnection          MObM4(MasterOut2, 0, bypassCombine4, 1);
 
+
+//bypassMixer
+AudioMixer4              combineMixer1;
+AudioMixer4              combineMixer2;
+
+
+//usb
+AudioConnection          byMultMo1(bypassCombine1, 0, combineMixer1, 0);
+AudioConnection          byMultMo2(bypassCombine2, 0, combineMixer2, 0);
+
+//line/mic
+AudioConnection          byMultMo3(bypassCombine3, 0, combineMixer1, 1);
+AudioConnection          byMultMo4(bypassCombine4, 0, combineMixer2, 1);
+
+AudioConnection          combineMultMo1(combineMixer1, 0, MasterOut1, 3);
+AudioConnection          combineMultMo2(combineMixer2, 0, MasterOut2, 3);
 
 Bounce button0 = Bounce(28, 15);
 Bounce button1 = Bounce(39, 15);  // 15 = 15 ms debounce time
@@ -103,7 +133,7 @@ int combineType = 0;
 bool muteBG = true;
 
 bool bypassInstrumentMode = false;
-bool bypassInstrumentModeClone = false;
+//bool bypassInstrumentModeClone = false;
 
 #ifdef TEENSY_41_PINS
 int redPin = A10;
@@ -140,10 +170,8 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   //AudioNoInterrupts();
   ///////////
   if (channel == 2) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     //make independent for channel
-    if (note == 29) { //channel 2 E0
+    if (note == 29) { //channel 2 F0
       if (muteBG) {
         muteBG = false;
       }
@@ -174,12 +202,6 @@ void myNoteOn(byte channel, byte note, byte velocity) {
       }
     }
     if (note == 35) {       //channel 2 B1
-=======
-    if (note == 35) {       //channel 2 C1
->>>>>>> parent of 702b12a... modifcation of combine filter
-=======
-    if (note == 35) {       //channel 2 C1
->>>>>>> parent of 702b12a... modifcation of combine filter
       if (!selectSynth) {
         selectSynth = true;
         Serial.println("synth 2 selected");
@@ -313,8 +335,9 @@ void printBytes(const byte *data, unsigned int size) {
 void setup() {
   //#ifdef DEBUG_ALLOC    
   Serial.begin(115200);
-  while (!Serial);
+  //while (!Serial);
   //#endif //DEBUG_ALLOC 
+  delay(2000);
 
   pinMode(28, INPUT_PULLUP);
   pinMode(29, INPUT_PULLUP);
@@ -380,22 +403,26 @@ void setup() {
   //////
   //create Synth Object
   synth1 = new iridescentBasicSynth(&synth1MasterOut1, &synth1MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
-  synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentModeClone);
+  synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
   //////
   
   /////
   //AudioInterrupts();
   ///////////
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   //while (!synth1 || !synth2);
+  betweenMixer1.gain(0, 1.0);
+  betweenMixer2.gain(0, 1.0);
+  betweenMixer1.gain(1, 1.0);
+  betweenMixer2.gain(1, 1.0);
+  MasterOut1.gain(1, 1.0);
+  MasterOut2.gain(1, 1.0);
+  MasterOut1.gain(2, 1.0);
+  MasterOut2.gain(2, 1.0);
+  MasterOut1.gain(3, 0.0);
+  MasterOut2.gain(3, 0.0);
   bypassCombine1.setCombineMode(AudioEffectDigitalCombine::OR);
   bypassCombine2.setCombineMode(AudioEffectDigitalCombine::OR);
-=======
->>>>>>> parent of 702b12a... modifcation of combine filter
-=======
->>>>>>> parent of 702b12a... modifcation of combine filter
   
   delay(2000);
   
@@ -405,8 +432,6 @@ void loop() {
   usbMIDI.read();
   //here are issues with pointers
   if (bypassInstrumentMode) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     if (muteBG) {
       betweenMixer1.gain(0, 0.0);
       betweenMixer2.gain(0, 0.0);
@@ -419,30 +444,24 @@ void loop() {
       betweenMixer1.gain(1, 0.85);
       betweenMixer2.gain(1, 0.85);
     }
-
     MasterOut1.gain(1, 0.85);
     MasterOut2.gain(1, 0.85);
     MasterOut1.gain(2, 0.85);
     MasterOut2.gain(2, 0.85);
     MasterOut1.gain(3, 1.0);
     MasterOut2.gain(3, 1.0);
-=======
-=======
->>>>>>> parent of 702b12a... modifcation of combine filter
-    betweenMixer1.gain(0, 0.0);
-    betweenMixer2.gain(0, 0.0);
     MasterOut1.gain(3, 0.78);
     MasterOut2.gain(3, 0.78);
-<<<<<<< HEAD
->>>>>>> parent of 702b12a... modifcation of combine filter
-=======
->>>>>>> parent of 702b12a... modifcation of combine filter
   }
   else {
-    //betweenMixer1.gain(0, 1.0);
-    //betweenMixer2.gain(0, 1.0);
     betweenMixer1.gain(0, 1.0);
     betweenMixer2.gain(0, 1.0);
+    betweenMixer1.gain(1, 1.0);
+    betweenMixer2.gain(1, 1.0);
+    MasterOut1.gain(1, 1.0);
+    MasterOut2.gain(1, 1.0);
+    MasterOut1.gain(2, 1.0);
+    MasterOut2.gain(2, 1.0);
     MasterOut1.gain(3, 0.0);
     MasterOut2.gain(3, 0.0);
   }

@@ -76,7 +76,7 @@ private:
 
   int millisSeconds = 0;
   
-  float eHoldDelay = 0.0; //200 GREEN
+  float eHoldDelay = 0; //200 GREEN
   float eHoldAttack = 9.2; // 11880 GREEN
   float eHoldHold = 2.1; // 11880 BLUE
   float eHoldDecay = 31.4; //11880 BLUE
