@@ -140,6 +140,7 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   //AudioNoInterrupts();
   ///////////
   if (channel == 2) {
+<<<<<<< HEAD
     //make independent for channel
     if (note == 29) { //channel 2 E0
       if (muteBG) {
@@ -172,6 +173,9 @@ void myNoteOn(byte channel, byte note, byte velocity) {
       }
     }
     if (note == 35) {       //channel 2 B1
+=======
+    if (note == 35) {       //channel 2 C1
+>>>>>>> parent of 702b12a... modifcation of combine filter
       if (!selectSynth) {
         selectSynth = true;
         Serial.println("synth 2 selected");
@@ -305,9 +309,8 @@ void printBytes(const byte *data, unsigned int size) {
 void setup() {
   //#ifdef DEBUG_ALLOC    
   Serial.begin(115200);
-  //while (!Serial);
+  while (!Serial);
   //#endif //DEBUG_ALLOC 
-  delay(2000);
 
   pinMode(28, INPUT_PULLUP);
   pinMode(29, INPUT_PULLUP);
@@ -379,10 +382,13 @@ void setup() {
   /////
   //AudioInterrupts();
   ///////////
+<<<<<<< HEAD
 
   //while (!synth1 || !synth2);
   bypassCombine1.setCombineMode(AudioEffectDigitalCombine::OR);
   bypassCombine2.setCombineMode(AudioEffectDigitalCombine::OR);
+=======
+>>>>>>> parent of 702b12a... modifcation of combine filter
   
   delay(2000);
   
@@ -392,6 +398,7 @@ void loop() {
   usbMIDI.read();
   //here are issues with pointers
   if (bypassInstrumentMode) {
+<<<<<<< HEAD
     if (muteBG) {
       betweenMixer1.gain(0, 0.0);
       betweenMixer2.gain(0, 0.0);
@@ -411,18 +418,18 @@ void loop() {
     MasterOut2.gain(2, 0.85);
     MasterOut1.gain(3, 1.0);
     MasterOut2.gain(3, 1.0);
+=======
+    betweenMixer1.gain(0, 0.0);
+    betweenMixer2.gain(0, 0.0);
+    MasterOut1.gain(3, 0.78);
+    MasterOut2.gain(3, 0.78);
+>>>>>>> parent of 702b12a... modifcation of combine filter
   }
   else {
     //betweenMixer1.gain(0, 1.0);
     //betweenMixer2.gain(0, 1.0);
     betweenMixer1.gain(0, 1.0);
     betweenMixer2.gain(0, 1.0);
-    betweenMixer1.gain(1, 1.0);
-    betweenMixer2.gain(1, 1.0);
-    MasterOut1.gain(1, 1.0);
-    MasterOut2.gain(1, 1.0);
-    MasterOut1.gain(2, 1.0);
-    MasterOut2.gain(2, 1.0);
     MasterOut1.gain(3, 0.0);
     MasterOut2.gain(3, 0.0);
   }

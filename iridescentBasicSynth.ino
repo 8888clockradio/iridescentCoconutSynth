@@ -48,8 +48,8 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
   ///////////
   
   for (int i = 0; i < TOTAL_VOICES; ++i) {
-    waveformMod[i].mod.phaseModulation((float) 0.33 * rad * i);
-    waveformMod[i].mod.amplitude(1);
+    waveformMod[i].mod.phaseModulation((float) 0.33 * rad * (float) i);
+    waveformMod[i].mod.amplitude(1.0);
     waveformMod[i].mod.begin(waveform_type);
     waveformMod[i].mod.arbitraryWaveform(SawDerange, 12543.0);
     //waveformMod[i].mod.frequencyModulation(3.5);
@@ -82,7 +82,7 @@ iridescentBasicSynth::iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounc
   filterHeaven1.gain(3, 1.0);
 
   sine1.amplitude(1.0);
-  sine1.frequency(50);
+  sine1.frequency(50.0);
 
   filter1.octaveControl(6);
   
@@ -126,16 +126,16 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       filter1.frequency((float) map((float) value, 0.0, 127.0, 50.0, 5000.0));
     }
     if (lfoAd == 0) { //Blue after Red
-      eHoldDelay = map((float) value, 0, 127, 0, 20); //200 GREEN
+      eHoldDelay = map((float) value, 0.0, 127.0, 0.0, 20.0); //200 GREEN
     }
     if (lfoAd == 1) { //Green
-      eHoldHold = map((float) value, 0, 127, 0, 11880); // 11880 BLUE
+      eHoldHold = map((float) value, 0.0, 127.0, 0.0, 11880.0); // 11880 BLUE
     }
     if (lfoAd == 2) { //Purple
-      eHoldSustain = map((float) value, 0, 127, 0.0, 1.0); //0.0 to 1.0 PURPLE
+      eHoldSustain = map((float) value, 0.0, 127.0, 0.0, 1.0); //0.0 to 1.0 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.phaseModulation(map((float) value, 0, 127, 30, 9000));
+      waveformMod[i].mod.phaseModulation(map((float) value, 0.0, 127.0, 30.0, 9000.0));
     }
 #ifdef DEBUG_ALLOC  
     Serial.println("frequency");
@@ -153,22 +153,22 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
     if (bypass)
     {
       //sine2.frequency(map((float) value, 0, 127, 50.0, 5000.0)); //add something here later
-      filter1.resonance((float) map((float) value, 0, 127, 0.7, 5.0));
+      filter1.resonance((float) map((float) value, 0.0, 127.0, 0.7, 5.0));
     }
     if (lfoAd == 0) { //GREEN
-      eHoldAttack = map((float) value, 0, 127, 0, 1000); // 11880 GREEN
+      eHoldAttack = map((float) value, 0.0, 127.0, 0.0, 1000.0); // 11880 GREEN
     }
     if (lfoAd == 1) { //BLUE
-      eHoldDecay = map((float) value, 0, 127, 0, 500); //11880 BLUE
+      eHoldDecay = map((float) value, 0.0, 127.0, 0.0, 500.0); //11880 BLUE
     }
     if (lfoAd == 2) { //PURPLE
-      eHoldRelease = map((float) value, 0, 127, 0, 3800); //11880 PURPLE
+      eHoldRelease = map((float) value, 0.0, 127.0, 0.0, 3800.0); //11880 PURPLE
     }
     for (int i = 0; i < TOTAL_VOICES; ++i) {
-      waveformMod[i].mod.frequencyModulation(map((float) value, 0, 127, 0.1, 2.5));
+      waveformMod[i].mod.frequencyModulation(map((float) value, 0.0, 127.0, 0.1, 2.5));
     }
-    sineForm.frequency(map((float) value, 0, 127, 0.05, 200.0));
-    sineFM.frequency(map((float) value, 0, 127, 82.41, 8.18));
+    sineForm.frequency(map((float) value, 0.0, 127.0, 0.05, 200.0));
+    sineFM.frequency(map((float) value, 0.0, 127.0, 82.41, 8.18));
   }
   
   for (int i = 0; i < TOTAL_VOICES; ++i) {
@@ -206,16 +206,16 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   if (channel == 2) {
     //issues here too with the bool not always firing
     if (note == 33) { //channel 2 A1
-      if (instrumentSwitch)
+      if (*mainFilebypassInstrumentMode)
       {
-        instrumentSwitch = false;
-        *mainFilebypassInstrumentMode = true;
-        Serial.println("instrumentSwitch = false");
+        //instrumentSwitch = false;
+        *mainFilebypassInstrumentMode = false;
+        Serial.println("*mainFilebypassInstrumentMode = false");
       }
       else {
-        instrumentSwitch = true;
-        *mainFilebypassInstrumentMode = false;
-        Serial.println("instrumentSwitch = true");
+        //instrumentSwitch = true;
+        *mainFilebypassInstrumentMode = true;
+        Serial.println("*mainFilebypassInstrumentMode = true");
       }
     }
     if (note == 36) { //channel 2 C1
@@ -414,13 +414,13 @@ void iridescentBasicSynth::updateSynth() {
   }
   else {
     
-      /////
-      //turn off filter
-      filterHeaven1.gain(0, 0.0); //lowpass
-      filterHeaven1.gain(1, 0.0); //bandpass
-      filterHeaven1.gain(2, 0.0); //highpass
-      filterHeaven1.gain(3, 1.0); //from pwmMixer       
-      /////                       
+    /////
+    //turn off filter
+    filterHeaven1.gain(0, 0.0); //lowpass
+    filterHeaven1.gain(1, 0.0); //bandpass
+    filterHeaven1.gain(2, 0.0); //highpass
+    filterHeaven1.gain(3, 1.0); //from pwmMixer       
+    /////                       
 
     if (pwmBypass) {              //pwm on
       pwmMixer1.gain(1, 0.0);     //1 is dry audio
@@ -770,7 +770,7 @@ void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
   float val = (float) map((float) pressure, 0.0, 127.0, 0.0, 1.0);
   float res = (float) map((float) pressure, 0.0, 127.0, 0.7, 5.0);
   float octaves = (float) map((float) pressure, 0.0, 127.0, 0.25, 3.5);
-  a1a1Aa = (float) map(pressure, 0.0, 127.0, 2.0, 600.0);
+  a1a1Aa = (float) map((float) pressure, 0.0, 127.0, 2.0, 600.0);
   
   /////
   //AudioNoInterrupts();
