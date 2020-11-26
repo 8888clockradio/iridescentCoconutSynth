@@ -103,7 +103,7 @@ int combineType = 0;
 bool muteBG = true;
 
 bool bypassInstrumentMode = false;
-//bool bypassInstrumentModeClone = false;
+bool bypassInstrumentModeClone = false;
 
 #ifdef TEENSY_41_PINS
 int redPin = A10;
@@ -373,7 +373,7 @@ void setup() {
   //////
   //create Synth Object
   synth1 = new iridescentBasicSynth(&synth1MasterOut1, &synth1MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
-  synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentMode);
+  synth2 = new iridescentBasicSynth(&synth2MasterOut1, &synth2MasterOut2, &button0, &button1, &button2, redPin, greenPin, bluePin, ledPin, ledPin2, &bypassInstrumentModeClone);
   //////
   
   /////
