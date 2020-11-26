@@ -82,6 +82,7 @@ AudioConnection         patchCord7(MasterOut2, 0, usb2, 1);
 //output to line out
 AudioConnection         patchCord24(MasterOut1, 0, i2s1, 0);
 AudioConnection         patchCord25(MasterOut2, 0, i2s1, 1);
+
 //////
 //for USB
 AudioEffectDigitalCombine      bypassCombine1;      //xy=334,644
@@ -131,6 +132,7 @@ Bounce button2 = Bounce(30, 15);
 
 int combineType = 0;
 bool muteBG = true;
+bool USB_OR_LINE_IN = true;
 
 bool bypassInstrumentMode = false;
 //bool bypassInstrumentModeClone = false;
@@ -171,6 +173,14 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   ///////////
   if (channel == 2) {
     //make independent for channel
+    if (note == 28) { //channel 2 F0
+      if (USB_OR_LINE_IN) {
+        USB_OR_LINE_IN = false;
+      }
+      else {
+        USB_OR_LINE_IN = true;
+      }
+    }
     if (note == 29) { //channel 2 F0
       if (muteBG) {
         muteBG = false;
@@ -439,19 +449,25 @@ void loop() {
       betweenMixer2.gain(1, 0.0);
     }
     else {
-      betweenMixer1.gain(0, 0.85);
-      betweenMixer2.gain(0, 0.85);
-      betweenMixer1.gain(1, 0.85);
-      betweenMixer2.gain(1, 0.85);
+      if (USB_OR_LINE_IN) {
+        betweenMixer1.gain(0, 0.65);
+        betweenMixer2.gain(0, 0.65);
+        betweenMixer1.gain(1, 0.0);
+        betweenMixer2.gain(1, 0.0);
+      }
+      else {
+        betweenMixer1.gain(0, 0.0);
+        betweenMixer2.gain(0, 0.0);
+        betweenMixer1.gain(1, 0.65);
+        betweenMixer2.gain(1, 0.65);
+      }
     }
-    MasterOut1.gain(1, 0.85);
-    MasterOut2.gain(1, 0.85);
-    MasterOut1.gain(2, 0.85);
-    MasterOut2.gain(2, 0.85);
-    MasterOut1.gain(3, 1.0);
-    MasterOut2.gain(3, 1.0);
-    MasterOut1.gain(3, 0.78);
-    MasterOut2.gain(3, 0.78);
+    MasterOut1.gain(1, 0.78);
+    MasterOut2.gain(1, 0.78);
+    MasterOut1.gain(2, 0.78);
+    MasterOut2.gain(2, 0.78);
+    MasterOut1.gain(3, 0.5);
+    MasterOut2.gain(3, 0.5);
   }
   else {
     betweenMixer1.gain(0, 1.0);
