@@ -70,8 +70,8 @@ for port_name in midi_outSide.ports:
 
 #stop highlighting. paste above so far into python interpretter press return twice
 #then modify the lines below and paste into python interpretter plus a couple of returns
-midi_inSide.open_port(2)    #starts with 0, midi keyboard plugged into computer-RECEIVES HERE
-midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device-SENDS HERE
+midi_inSide.open_port(2)    #starts with 0, midi keyboard plugged into computer 	RECEIVES HERE
+midi_outSide.open_port(8)   #also starts with 0, the actual iridescentCoconutSynth device  SENDS HERE
 midi_inSide.callback = callback #actually assigns the midi thru with function callback
 ```
 Remember control+d once or twice, force quits python. Also note: control NOT Command (Mac OS)
