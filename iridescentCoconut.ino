@@ -141,6 +141,7 @@ void myNoteOn(byte channel, byte note, byte velocity) {
   ///////////
   if (channel == 2) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     //make independent for channel
     if (note == 29) { //channel 2 E0
       if (muteBG) {
@@ -173,6 +174,9 @@ void myNoteOn(byte channel, byte note, byte velocity) {
       }
     }
     if (note == 35) {       //channel 2 B1
+=======
+    if (note == 35) {       //channel 2 C1
+>>>>>>> parent of 702b12a... modifcation of combine filter
 =======
     if (note == 35) {       //channel 2 C1
 >>>>>>> parent of 702b12a... modifcation of combine filter
@@ -383,10 +387,13 @@ void setup() {
   //AudioInterrupts();
   ///////////
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   //while (!synth1 || !synth2);
   bypassCombine1.setCombineMode(AudioEffectDigitalCombine::OR);
   bypassCombine2.setCombineMode(AudioEffectDigitalCombine::OR);
+=======
+>>>>>>> parent of 702b12a... modifcation of combine filter
 =======
 >>>>>>> parent of 702b12a... modifcation of combine filter
   
@@ -398,6 +405,7 @@ void loop() {
   usbMIDI.read();
   //here are issues with pointers
   if (bypassInstrumentMode) {
+<<<<<<< HEAD
 <<<<<<< HEAD
     if (muteBG) {
       betweenMixer1.gain(0, 0.0);
@@ -419,10 +427,15 @@ void loop() {
     MasterOut1.gain(3, 1.0);
     MasterOut2.gain(3, 1.0);
 =======
+=======
+>>>>>>> parent of 702b12a... modifcation of combine filter
     betweenMixer1.gain(0, 0.0);
     betweenMixer2.gain(0, 0.0);
     MasterOut1.gain(3, 0.78);
     MasterOut2.gain(3, 0.78);
+<<<<<<< HEAD
+>>>>>>> parent of 702b12a... modifcation of combine filter
+=======
 >>>>>>> parent of 702b12a... modifcation of combine filter
   }
   else {
