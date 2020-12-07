@@ -17,7 +17,7 @@ limitations under the License.
 #include <SPI.h>
 #include <SD.h>
 #include <SerialFlash.h>
-#include <log2.h>
+//#include <log2.h>  //this was one used to generate MIDI array to calculation hz from 440 HZ
 #include "constsAndStructs.h"
 #include "iridescentBasicSynth.h"
 
