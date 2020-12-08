@@ -14,7 +14,7 @@ limitations under the License.
 class iridescentBasicSynth
 {
 public:  
-  iridescentBasicSynth(AudioMixer4 *l, AudioMixer4 *r, Bounce *btn0, Bounce *btn1, Bounce *btn2, int rPin, int gPin, int bPin, int lPin, int lPin2, bool* instrumentBool);
+  iridescentBasicSynth(float (&midiNotes)[128], AudioMixer4 *l, AudioMixer4 *r, Bounce *btn0, Bounce *btn1, Bounce *btn2, int rPin, int gPin, int bPin, int lPin, int lPin2, bool* instrumentBool);
 
   void myControlChange(byte channel, byte control, byte value);
   
@@ -59,6 +59,7 @@ public:
   void myRealTimeSystem(uint8_t realtimebyte);
   
   void printBytes(const byte *data, unsigned int size);
+
   
 private:  
   bool instrumentSwitch = false;
@@ -76,7 +77,7 @@ private:
 
   int millisSeconds = 0;
   
-  float eHoldDelay = 0; //200 GREEN
+  float eHoldDelay = 0.0; //200 GREEN
   float eHoldAttack = 9.2; // 11880 GREEN
   float eHoldHold = 2.1; // 11880 BLUE
   float eHoldDecay = 31.4; //11880 BLUE
