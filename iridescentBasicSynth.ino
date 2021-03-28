@@ -1,5 +1,5 @@
 /*
-        Copyright 2020 George C. Rosar II licensed under:
+        Copyright 2021 George C. Rosar II licensed under:
                  Apache License
            Version 2.0, January 2004
         http://www.apache.org/licenses/
@@ -94,12 +94,14 @@ iridescentBasicSynth::iridescentBasicSynth(float (&midiNotes)[128], AudioMixer4 
 
 void iridescentBasicSynth::myControlChange(byte channel, byte control, byte value) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Control Change, ch=");
   Serial.print(channel, DEC);
   Serial.print(", control=");
   Serial.print(control, DEC);
   Serial.print(", value=");
   Serial.println(value, DEC);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC   
 
 
@@ -138,7 +140,9 @@ void iridescentBasicSynth::myControlChange(byte channel, byte control, byte valu
       waveformMod[i].mod.phaseModulation(map((float) value, 0.0, 127.0, 30.0, 9000.0));
     }
 #ifdef DEBUG_ALLOC  
+    #ifndef NOSERIALPORT 
     Serial.println("frequency");
+    #endif //NOSERIALPORT
 #endif
     sineFM.frequency((float) map((float) value, 0.0, 127.0,  0.05, 20.9));
     sineForm.frequency((float) map((float) value, 0.0, 127.0, 26.0, 0.05));
@@ -196,12 +200,14 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   ///////////
 
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Note On, ch=");
   Serial.print(channel, DEC);
   Serial.print(", note=");
   Serial.print(note, DEC);
   Serial.print(", velocity=");
   Serial.println(velocity, DEC);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC  
   if (channel == 2) {
     //issues here too with the bool not always firing
@@ -210,29 +216,39 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
       {
         //instrumentSwitch = false;
         *mainFilebypassInstrumentMode = false;
+        #ifndef NOSERIALPORT 
         Serial.println("*mainFilebypassInstrumentMode = false");
+        #endif //NOSERIALPORT
       }
       else {
         //instrumentSwitch = true;
         *mainFilebypassInstrumentMode = true;
+        #ifndef NOSERIALPORT 
         Serial.println("*mainFilebypassInstrumentMode = true");
+        #endif //NOSERIALPORT
       }
     }
     if (note == 36) { //channel 2 C1
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("button0Trig - true");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
       button0Trig = true;
     }
     if (note == 38) { //channel 2 D1
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("button1Trig - true");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
       button1Trig = true;
     }
     if (note == 40) { //channel 2 E1
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("button2Trig - true");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
       button2Trig = true;
     }
@@ -240,32 +256,42 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
       if (filter == 0) {
         filter = 1;
         //#ifdef DEBUG_ALLOC
+        #ifndef NOSERIALPORT 
         Serial.println("Band Pass selected");
+        #endif //NOSERIALPORT
         //#endif //DEBUG_ALLOC 
       }
       else if (filter == 1) {
         filter = 2;
         //#ifdef DEBUG_ALLOC
+        #ifndef NOSERIALPORT 
         Serial.println("High Pass selected");
+        #endif //NOSERIALPORT
         //#endif //DEBUG_ALLOC 
       }
       else if (filter == 2) {
         filter = 0;
         //#ifdef DEBUG_ALLOC
+        #ifndef NOSERIALPORT 
         Serial.println("Low Pass selected");
+        #endif //NOSERIALPORT
         //#endif //DEBUG_ALLOC
       }
     }
     if (note == 43) { //channel 2 G1
       if (pwmBypass) {
         //#ifdef DEBUG_ALLOC
+        #ifndef NOSERIALPORT 
         Serial.println("pwmBypass off");
+        #endif //NOSERIALPORT
         //#endif //DEBUG_ALLOC
         pwmBypass = false;
       }
       else {
         //#ifdef DEBUG_ALLOC
+        #ifndef NOSERIALPORT 
         Serial.println("pwmBypass on");
+        #endif //NOSERIALPORT
         //#endif //DEBUG_ALLOC
         pwmBypass = true;
       }
@@ -275,7 +301,9 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
   {
     notes_played++;
   #ifdef DEBUG_ALLOC
+    #ifndef NOSERIALPORT 
     Serial.printf("**** NoteOn: channel==%hhu,note==%hhu ****\n", channel, note);
+    #endif //NOSERIALPORT
     printVoices();
   #endif //DEBUG_ALLOC
     freeVoices();
@@ -299,6 +327,7 @@ void iridescentBasicSynth::myNoteOn(byte channel, byte note, byte velocity) {
 
 void iridescentBasicSynth::myNoteOff(byte channel, byte note, byte velocity) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Note Off, ch=");
   Serial.print(channel, DEC);
   Serial.print(", note=");
@@ -306,6 +335,7 @@ void iridescentBasicSynth::myNoteOff(byte channel, byte note, byte velocity) {
   Serial.print(", velocity=");
   Serial.println(velocity, DEC);
   Serial.printf("\n**** NoteOff: channel==%hhu,note==%hhu ****", channel, note);
+  #endif //NOSERIALPORT
   printVoices();
   #endif //DEBUG_ALLOC
   int waveformMod_id = findVoice(channel, note);
@@ -327,9 +357,11 @@ void iridescentBasicSynth::updateSynth() {
   if (millis() > ((unsigned long) millisSeconds + 5000)) {
   //if (millis() > theMillis) {
     millisSeconds = millis();
+    #ifndef NOSERIALPORT 
     Serial.print("Audio Processor Usage: "); Serial.print(AudioProcessorUsage()); Serial.print('/'); 
     Serial.print(AudioProcessorUsageMax()); Serial.print(" ");  Serial.print(AudioProcessorUsage() / AudioProcessorUsageMax()); Serial.println('%');
     Serial.printf("MemUsage:%i\n", AudioMemoryUsageMax());
+    #endif //NOSERIALPORT
   }
   //#endif //DEBUG_ALLOC
   
@@ -455,65 +487,85 @@ void iridescentBasicSynth::updateSynth() {
   ///////////
 
   if (button0.fallingEdge() || button0Trig) {
-    //#ifdef DEBUG_ALLOC    
+    //#ifdef DEBUG_ALLOC   
+    #ifndef NOSERIALPORT  
     Serial.print("Control waveform: ");
+    #endif //NOSERIALPORT
     //#endif //DEBUG_ALLOC 
     if (waveform_type == WAVEFORM_SAMPLE_HOLD) {
       waveform_type = WAVEFORM_SINE;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_SINE");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_SINE) {
       waveform_type = WAVEFORM_SQUARE;  //original value
       //waveform_type = WAVEFORM_TRIANGLE;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_SQUARE");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_SQUARE) {
       waveform_type = WAVEFORM_TRIANGLE;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_TRIANGLE");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_TRIANGLE) {
       waveform_type = WAVEFORM_PULSE;   //original value
       digitalWrite(ledPin2, HIGH);
       //waveform_type = WAVEFORM_SAWTOOTH;
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_PULSE");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC 
     } else if (waveform_type == WAVEFORM_PULSE) {
       waveform_type = WAVEFORM_SAWTOOTH;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_SAWTOOTH");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_SAWTOOTH) {
       waveform_type = WAVEFORM_SAWTOOTH_REVERSE;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_SAWTOOTH_REVERSE");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_SAWTOOTH_REVERSE) {
       waveform_type = WAVEFORM_TRIANGLE_VARIABLE;   //original value
       //waveform_type = WAVEFORM_ARBITRARY;
       digitalWrite(ledPin2, HIGH);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_TRIANGLE_VARIABLE");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_TRIANGLE_VARIABLE) {
       waveform_type = WAVEFORM_ARBITRARY;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_ARBITRARY");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
     } else if (waveform_type == WAVEFORM_ARBITRARY) {
       waveform_type = WAVEFORM_SAMPLE_HOLD;
       digitalWrite(ledPin2, LOW);
       //#ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("WAVEFORM_SAMPLE_HOLD");
+      #endif //NOSERIALPORT
       //#endif //DEBUG_ALLOC
     }
     //WAVEFORM_SAWTOOTH_REVERSE, WAVEFORM_TRIANGLE_VARIABLE, WAVEFORM_ARBITRARY, WAVEFORM_SAMPLE_HOLD
@@ -557,13 +609,17 @@ void iridescentBasicSynth::updateSynth() {
 
       
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("Bypass turned on - WHITE MODE");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC
       digitalWrite(ledPin, HIGH);
     }
     else if (bypass) {
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("Bypass turned off - WHITE MODE");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC
       bypass = false;
       filterHeaven1.gain(0, 0.0);
@@ -621,8 +677,10 @@ void iridescentBasicSynth::updateSynth() {
     if (lfoAd == 0) {
       //greenValue
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("greenValue");
       Serial.println("lfo-1");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC     
       lfoAd = 1;  //actual value
       //instrumentSwitch = false;
@@ -631,8 +689,10 @@ void iridescentBasicSynth::updateSynth() {
     else if (lfoAd == 1) {
       //blue
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("blueValue");
       Serial.println("lfo-2");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC      
       lfoAd = 2;
       //instrumentSwitch = false;
@@ -641,8 +701,10 @@ void iridescentBasicSynth::updateSynth() {
     else if (lfoAd == 2) {
       //purple
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("purpleValue");
       Serial.println("lfo-3");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC         
       lfoAd = 3;
       //instrumentSwitch = false;
@@ -651,12 +713,16 @@ void iridescentBasicSynth::updateSynth() {
     else if (lfoAd == 3) {
       //yellow
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("yellowValue");
       Serial.println("lfo-4");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC        
       lfoAd = 4;
       #ifdef DEBUG_ALLOC      
+      #ifndef NOSERIALPORT 
       Serial.println("instrument switch on");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC       
       //instrumentSwitch = false;
       setColorIn(255, 0, 255);
@@ -664,12 +730,16 @@ void iridescentBasicSynth::updateSynth() {
     else if (lfoAd == 4) {
       //white
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("whiteValue");
       Serial.println("lfo-5");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC         
       lfoAd = 5;
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("instrument switch on");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC 
       //instrumentSwitch = true;
       //add line-in to synth or usb in from computer to synth
@@ -679,8 +749,10 @@ void iridescentBasicSynth::updateSynth() {
     else if (lfoAd == 5) {
       //red
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("redValue");
       Serial.println("lfo-0");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC       
       lfoAd = 0;
       //instrumentSwitch = false;
@@ -689,8 +761,10 @@ void iridescentBasicSynth::updateSynth() {
     else {
       //red
       #ifdef DEBUG_ALLOC
+      #ifndef NOSERIALPORT 
       Serial.println("redValue");
       Serial.println("lfo default else statement");
+      #endif //NOSERIALPORT
       #endif //DEBUG_ALLOC   
       lfoAd = 0;
       //instrumentSwitch = false;
@@ -702,12 +776,14 @@ void iridescentBasicSynth::updateSynth() {
 
 void iridescentBasicSynth::myAfterTouchPoly(byte channel, byte note, byte velocity) {
   //#ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("AfterTouch Change, ch=");
   Serial.print(channel, DEC);
   Serial.print(", note=");
   Serial.print(note, DEC);
   Serial.print(", velocity=");
   Serial.println(velocity, DEC);
+  #endif //NOSERIALPORT
   //#endif //DEBUG_ALLOC
 
   /////
@@ -747,19 +823,23 @@ void iridescentBasicSynth::myAfterTouchPoly(byte channel, byte note, byte veloci
 
 void iridescentBasicSynth::myProgramChange(byte channel, byte program) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Program Change, ch=");
   Serial.print(channel, DEC);
   Serial.print(", program=");
   Serial.println(program, DEC);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
   //#ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("After Touch, ch=");
   Serial.print(channel, DEC);
   Serial.print(", pressure=");
   Serial.println(pressure, DEC);
+  #endif //NOSERIALPORT
   //#endif //DEBUG_ALLOC
 
   /////
@@ -796,10 +876,12 @@ void iridescentBasicSynth::myAfterTouchChannel(byte channel, byte pressure) {
 
 void iridescentBasicSynth::myPitchChange(byte channel, int pitch) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Pitch Change, ch=");
   Serial.print(channel, DEC);
   Serial.print(", pitch=");
   Serial.println(pitch, DEC);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
   
   /////
@@ -827,21 +909,31 @@ void iridescentBasicSynth::myPitchChange(byte channel, int pitch) {
 
 void iridescentBasicSynth::mySystemExclusiveChunk(const byte *data, uint16_t length, bool last) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("SysEx Message: ");
+  #endif //NOSERIALPORT
   printBytes(data, length);
   if (last) {
+    #ifndef NOSERIALPORT 
     Serial.println(" (end)");
+    #endif //NOSERIALPORT
   } else {
+    #ifndef NOSERIALPORT 
     Serial.println(" (to be continued)");
+    #endif //NOSERIALPORT
   }
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::mySystemExclusive(byte *data, unsigned int length) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("SysEx Message: ");
+  #endif //NOSERIALPORT
   printBytes(data, length);
+  #ifndef NOSERIALPORT 
   Serial.println();
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
@@ -857,6 +949,7 @@ void iridescentBasicSynth::myTimeCodeQuarterFrame(byte data) {
   }
   if (index < 8 || number < 10) {
     SMPTE[index] = number + '0';
+    #ifndef NOSERIALPORT 
     Serial.print("TimeCode: ");  // perhaps only print when index == 7
     Serial.print(SMPTE[7]);
     Serial.print(SMPTE[6]);
@@ -875,84 +968,109 @@ void iridescentBasicSynth::myTimeCodeQuarterFrame(byte data) {
       case 2: Serial.println(" 29.97 fps"); break;
       case 3: Serial.println(" 30 fps"); break;
     }
+    #endif //NOSERIALPORT
   } else {
+    #ifndef NOSERIALPORT 
     Serial.print("TimeCode: invalid data = ");
     Serial.println(data, HEX);
+    #endif //NOSERIALPORT
   }
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::mySongPosition(uint16_t beats) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Song Position, beat=");
   Serial.println(beats);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::mySongSelect(byte songNumber) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Song Select, song=");
   Serial.println(songNumber, DEC);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myTuneRequest() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("Tune Request");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myClock() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("Clock");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myStart() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("Start");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myContinue() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("Continue");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myStop() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("Stop");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myActiveSensing() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("Active Sensing");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::mySystemReset() {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.println("System Reset");
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::myRealTimeSystem(uint8_t realtimebyte) {
   #ifdef DEBUG_ALLOC
+  #ifndef NOSERIALPORT 
   Serial.print("Real Time Message, code=");
   Serial.println(realtimebyte, HEX);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
 
 void iridescentBasicSynth::printBytes(const byte *data, unsigned int size) {
   #ifdef DEBUG_ALLOC
   while (size > 0) {
+    #ifndef NOSERIALPORT 
     byte b = *data++;
     if (b < 16) Serial.print('0');
     Serial.print(b, HEX);
     if (size > 1) Serial.print(' ');
     size = size - 1;
+    #endif //NOSERIALPORT
   }
   #endif //DEBUG_ALLOC
 }
@@ -1035,8 +1153,12 @@ void iridescentBasicSynth::printVoices() {
     return;
   last_notes_played = notes_played;
   int usage = AudioProcessorUsage();
+  #ifndef NOSERIALPORT 
   Serial.printf("\nCPU:%03i voices:%02i CPU/Voice:%02i evict:%02i\n", usage, used_voices, usage / used_voices, evict_voice);
+  #endif //NOSERIALPORT
+  #ifndef NOSERIALPORT 
   for (int i = 0; i < used_voices; ++i)
     Serial.printf(" %02hhu %-2s", voices[i].channel, note_map[voices[i].note % 12]);
+  #endif //NOSERIALPORT
   #endif //DEBUG_ALLOC
 }
